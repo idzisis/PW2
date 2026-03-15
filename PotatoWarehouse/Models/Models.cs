@@ -78,6 +78,8 @@ public class IncomingPotato
     public int ContainerCount { get; set; }
 
     public double TotalWeight => ContainerWeight * ContainerCount;
+    
+    public double TotalWeightTons => (ContainerWeight * ContainerCount) / 1000.0;
 
     public int SeasonId { get; set; }
 
@@ -107,6 +109,8 @@ public class OutgoingPotato
     public int ContainerCount { get; set; }
 
     public double TotalWeight => ContainerWeight * ContainerCount;
+    
+    public double TotalWeightTons => (ContainerWeight * ContainerCount) / 1000.0;
 
     [Required]
     [MaxLength(200)]

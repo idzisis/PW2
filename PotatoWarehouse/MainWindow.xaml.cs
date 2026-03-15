@@ -20,6 +20,31 @@ public partial class MainWindow : Window
         NavigateHome(this, new RoutedEventArgs());
     }
 
+    private void IncomingWeight_Changed(object sender, TextChangedEventArgs e)
+    {
+        CalculateIncomingTotal();
+    }
+
+    private void IncomingCount_Changed(object sender, TextChangedEventArgs e)
+    {
+        CalculateIncomingTotal();
+    }
+
+    private void CalculateIncomingTotal()
+    {
+        if (double.TryParse(IncomingContainerWeight.Text, out double weight) && 
+            int.TryParse(IncomingContainerCount.Text, out int count))
+        {
+            double total = weight * count;
+            IncomingTotalWeight.Text = total.ToString("N3");
+        }
+        else
+        {
+            IncomingTotalWeight.Text = "";
+        }
+    }
+    }
+
     private void LoadActiveSeason()
     {
         using var context = new WarehouseDbContext();

@@ -229,17 +229,17 @@
 
                             <StackPanel Grid.Column="3" Margin="0,0,8,0">
                                 <TextBlock Text="Sv. (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
-                                <TextBox x:Name="IncomingContainerWeight" Style="{StaticResource ModernTextBox}"/>
+                                <TextBox x:Name="IncomingContainerWeight" Style="{StaticResource ModernTextBox}" TextChanged="IncomingWeight_Changed"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="4" Margin="0,0,8,0">
                                 <TextBlock Text="Daudz" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
-                                <TextBox x:Name="IncomingContainerCount" Style="{StaticResource ModernTextBox}"/>
+                                <TextBox x:Name="IncomingContainerCount" Style="{StaticResource ModernTextBox}" TextChanged="IncomingCount_Changed"/>
                             </StackPanel>
 
                             <StackPanel Grid.Column="5" Margin="0,0,8,0">
                                 <TextBlock Text="Kopā (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
-                                <TextBox x:Name="IncomingTotalWeight" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F9FAFB"/>
+                                <TextBox x:Name="IncomingTotalWeight" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F3F4F6"/>
                             </StackPanel>
 
                             <Button Grid.Column="6" 
@@ -263,15 +263,15 @@
                                   RowBackground="White"
                                   AlternatingRowBackground="#F8FAFC">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Datums" Binding="{Binding Date, StringFormat=d}" Width="80"/>
-                                <DataGridTextColumn Header="Šķirne" Binding="{Binding Variety.Name}" Width="*"/>
-                                <DataGridTextColumn Header="Kalibrs" Binding="{Binding Caliber.Name}" Width="*"/>
-                                <DataGridTextColumn Header="Kont. svars (t)" Binding="{Binding ContainerWeight, StringFormat=N3}" Width="100"/>
-                                <DataGridTextColumn Header="Daudzums" Binding="{Binding ContainerCount}" Width="80"/>
-                                <DataGridTextColumn Header="Kopā (t)" Binding="{Binding TotalWeight, StringFormat=N3}" Width="100">
+                                <DataGridTextColumn Header="Datums" Binding="{Binding Date, StringFormat=d}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Šķirne" Binding="{Binding Variety.Name}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Kalibrs" Binding="{Binding Caliber.Name}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Sv. (t)" Binding="{Binding ContainerWeight, StringFormat=N3}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Daudz" Binding="{Binding ContainerCount}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Kopā (t)" Binding="{Binding TotalWeightTons, StringFormat=N3}" Width="SizeToCells">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
                                             <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
@@ -382,18 +382,18 @@
                                   RowBackground="White"
                                   AlternatingRowBackground="#F8FAFC">
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Datums" Binding="{Binding Date, StringFormat=d}" Width="80"/>
-                                <DataGridTextColumn Header="Šķirne" Binding="{Binding Variety.Name}" Width="*"/>
-                                <DataGridTextColumn Header="Kalibrs" Binding="{Binding Caliber.Name}" Width="*"/>
-                                <DataGridTextColumn Header="Svars (t)" Binding="{Binding TotalWeight, StringFormat=N3}" Width="100">
+                                <DataGridTextColumn Header="Datums" Binding="{Binding Date, StringFormat=d}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Šķirne" Binding="{Binding Variety.Name}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Kalibrs" Binding="{Binding Caliber.Name}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Svars (t)" Binding="{Binding TotalWeightTons, StringFormat=N3}" Width="SizeToCells">
                                     <DataGridTextColumn.ElementStyle>
                                         <Style TargetType="TextBlock">
-                                            <Setter Property="FontWeight" Value="SemiBold"/>
+                                            <Setter Property="FontWeight" Value="Bold"/>
                                             <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
-                                <DataGridTextColumn Header="Pircējs" Binding="{Binding Buyer}" Width="*"/>
+                                <DataGridTextColumn Header="Pircējs" Binding="{Binding Buyer}" Width="SizeToCells"/>
                                 <DataGridTemplateColumn Width="60">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
