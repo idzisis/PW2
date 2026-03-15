@@ -44,7 +44,6 @@ public partial class MainWindow : Window
             IncomingTotalWeight.Text = "";
         }
     }
-    }
 
     private void LoadActiveSeason()
     {
