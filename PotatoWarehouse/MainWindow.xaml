@@ -202,42 +202,42 @@
                     <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="80"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
                                 <TextBlock Text="Datums" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <DatePicker x:Name="IncomingDatePicker" SelectedDate="{x:Static sys:DateTime.Today}" 
                                             xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="1" Margin="0,0,8,0">
                                 <TextBlock Text="Šķirne" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <ComboBox x:Name="IncomingVarietyCombo" Style="{StaticResource ModernComboBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="2" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="2" Margin="0,0,8,0">
                                 <TextBlock Text="Kalibrs" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <ComboBox x:Name="IncomingCaliberCombo" Style="{StaticResource ModernComboBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="3" Margin="0,0,12,0">
-                                <TextBlock Text="Kont. svars (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+                            <StackPanel Grid.Column="3" Margin="0,0,8,0">
+                                <TextBlock Text="Sv. (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBox x:Name="IncomingContainerWeight" Style="{StaticResource ModernTextBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="4" Margin="0,0,12,0">
-                                <TextBlock Text="Kont. skaits" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+                            <StackPanel Grid.Column="4" Margin="0,0,8,0">
+                                <TextBlock Text="Daudz" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBox x:Name="IncomingContainerCount" Style="{StaticResource ModernTextBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="5" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="5" Margin="0,0,8,0">
                                 <TextBlock Text="Kopā (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBox x:Name="IncomingTotalWeight" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F9FAFB"/>
                             </StackPanel>
@@ -317,36 +317,36 @@
                     <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
                         <Grid>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="100"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Column="0" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
                                 <TextBlock Text="Datums" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <DatePicker x:Name="OutgoingDatePicker" SelectedDate="{x:Static sys:DateTime.Today}"
                                             xmlns:sys="clr-namespace:System;assembly=mscorlib"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="1" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="1" Margin="0,0,8,0">
                                 <TextBlock Text="Šķirne" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <ComboBox x:Name="OutgoingVarietyCombo" Style="{StaticResource ModernComboBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="2" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="2" Margin="0,0,8,0">
                                 <TextBlock Text="Kalibrs" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <ComboBox x:Name="OutgoingCaliberCombo" Style="{StaticResource ModernComboBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="3" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="3" Margin="0,0,8,0">
                                 <TextBlock Text="Svars (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBox x:Name="OutgoingWeight" Style="{StaticResource ModernTextBox}"/>
                             </StackPanel>
 
-                            <StackPanel Grid.Column="4" Margin="0,0,12,0">
+                            <StackPanel Grid.Column="4" Margin="0,0,8,0">
                                 <TextBlock Text="Pircējs" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                 <TextBox x:Name="OutgoingBuyer" Style="{StaticResource ModernTextBox}"/>
                             </StackPanel>
