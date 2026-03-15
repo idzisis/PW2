@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# .NET
+/publish/
+/dotnet-install.sh
+PotatoWarehouse/bin/
+PotatoWarehouse/obj/
