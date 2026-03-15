@@ -4,17 +4,18 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Apple-inspired Minimal Color Palette -->
+            <!-- Light Apple-inspired Minimal Color Palette -->
             <Color x:Key="PrimaryColor">#007AFF</Color>
             <Color x:Key="PrimaryDarkColor">#0056CC</Color>
             <Color x:Key="AccentColor">#34C759</Color>
-            <Color x:Key="BackgroundColor">#F2F2F7</Color>
+            <Color x:Key="BackgroundColor">#F5F5F7</Color>
             <Color x:Key="BackgroundPure">#FFFFFF</Color>
             <Color x:Key="CardColor">#FFFFFF</Color>
-            <Color x:Key="TextPrimaryColor">#000000</Color>
-            <Color x:Key="TextSecondaryColor">#8E8E93</Color>
-            <Color x:Key="SidebarColor">#1C1C1E</Color>
-            <Color x:Key="SidebarHoverColor">#2C2C2E</Color>
+            <Color x:Key="TextPrimaryColor">#1D1D1F</Color>
+            <Color x:Key="TextSecondaryColor">#86868B</Color>
+            <Color x:Key="SidebarColor">#F5F5F7</Color>
+            <Color x:Key="SidebarBorderColor">#E5E5EA</Color>
+            <Color x:Key="SidebarActiveColor">#E8E8ED</Color>
             <Color x:Key="DangerColor">#FF3B30</Color>
             <Color x:Key="SuccessColor">#34C759</Color>
             <Color x:Key="BorderColor">#E5E5EA</Color>
@@ -28,6 +29,7 @@
             <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
             <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
             <SolidColorBrush x:Key="SidebarBrush" Color="{StaticResource SidebarColor}"/>
+            <SolidColorBrush x:Key="SidebarActiveBrush" Color="{StaticResource SidebarActiveColor}"/>
             <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}"/>
             <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
@@ -55,7 +57,7 @@
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="border" Property="Background" Value="#C7C7CC"/>
+                                    <Setter TargetName="border" Property="Background" Value="#D1D1D6"/>
                                     <Setter Property="Foreground" Value="#FFFFFF"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
@@ -133,7 +135,7 @@
             <!-- Apple Navigation Button -->
             <Style x:Key="NavButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="#98989D"/>
+                <Setter Property="Foreground" Value="#86868B"/>
                 <Setter Property="Padding" Value="16,12"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="BorderThickness" Value="0"/>
@@ -151,8 +153,8 @@
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter TargetName="border" Property="Background" Value="{StaticResource SidebarHoverColor}"/>
-                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter TargetName="border" Property="Background" Value="{StaticResource SidebarActiveBrush}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -165,7 +167,7 @@
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="RowBackground" Value="White"/>
-                <Setter Property="AlternatingRowBackground" Value="#F9F9F9"/>
+                <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
                 <Setter Property="HorizontalGridLinesBrush" Value="#E5E5EA"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
@@ -178,8 +180,8 @@
             </Style>
 
             <Style TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="#F2F2F7"/>
-                <Setter Property="Foreground" Value="#8E8E93"/>
+                <Setter Property="Background" Value="#F5F5F7"/>
+                <Setter Property="Foreground" Value="#86868B"/>
                 <Setter Property="FontWeight" Value="Medium"/>
                 <Setter Property="FontSize" Value="12"/>
                 <Setter Property="Padding" Value="12,10"/>
@@ -209,7 +211,7 @@
                 <Setter Property="Background" Value="White"/>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#F9F9F9"/>
+                        <Setter Property="Background" Value="#FAFAFA"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>

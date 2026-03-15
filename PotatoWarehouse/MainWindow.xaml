@@ -13,7 +13,7 @@
         </Grid.ColumnDefinitions>
 
         <!-- Apple-style Sidebar -->
-        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}">
+        <Border Grid.Column="0" Background="{StaticResource SidebarBrush}" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
             <DockPanel>
                 <StackPanel DockPanel.Dock="Top" Margin="16,24,16,16">
                     <StackPanel Orientation="Horizontal" Margin="8,0,0,12">
@@ -21,20 +21,20 @@
                         <TextBlock Text="Noliktava"
                                    FontSize="18"
                                    FontWeight="SemiBold"
-                                   Foreground="White"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
                                    VerticalAlignment="Center"/>
                     </StackPanel>
-                    <Border Background="#2C2C2E" CornerRadius="8" Padding="12,8" Margin="8,0,8,0">
+                    <Border Background="White" CornerRadius="8" Padding="12,8" Margin="8,0,8,0" BorderBrush="{StaticResource BorderBrush}" BorderThickness="1">
                         <StackPanel>
                             <TextBlock Text="SEZONA"
                                        FontSize="10"
                                        FontWeight="Medium"
-                                       Foreground="#636366"
+                                       Foreground="{StaticResource TextSecondaryBrush}"
                                        Margin="0,0,0,2"/>
                             <TextBlock x:Name="SeasonLabel"
                                        Text="Nav izvēlēta"
                                        FontSize="13"
-                                       Foreground="White"/>
+                                       Foreground="{StaticResource TextPrimaryBrush}"/>
                         </StackPanel>
                     </Border>
                 </StackPanel>
@@ -68,7 +68,7 @@
 
                 <TextBlock DockPanel.Dock="Bottom"
                            Text="v1.0"
-                           Foreground="#636366"
+                           Foreground="{StaticResource TextSecondaryBrush}"
                            FontSize="11"
                            Margin="20,0,20,16"
                            HorizontalAlignment="Center"/>
