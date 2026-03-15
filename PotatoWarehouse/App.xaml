@@ -4,21 +4,21 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Light Apple-inspired Minimal Color Palette -->
-            <Color x:Key="PrimaryColor">#007AFF</Color>
-            <Color x:Key="PrimaryDarkColor">#0056CC</Color>
-            <Color x:Key="AccentColor">#34C759</Color>
-            <Color x:Key="BackgroundColor">#F5F5F7</Color>
+            <!-- Neutral Light Color Palette -->
+            <Color x:Key="PrimaryColor">#6B7280</Color>
+            <Color x:Key="PrimaryDarkColor">#4B5563</Color>
+            <Color x:Key="AccentColor">#10B981</Color>
+            <Color x:Key="BackgroundColor">#F9FAFB</Color>
             <Color x:Key="BackgroundPure">#FFFFFF</Color>
             <Color x:Key="CardColor">#FFFFFF</Color>
-            <Color x:Key="TextPrimaryColor">#1D1D1F</Color>
-            <Color x:Key="TextSecondaryColor">#86868B</Color>
-            <Color x:Key="SidebarColor">#F5F5F7</Color>
-            <Color x:Key="SidebarBorderColor">#E5E5EA</Color>
-            <Color x:Key="SidebarActiveColor">#E8E8ED</Color>
-            <Color x:Key="DangerColor">#FF3B30</Color>
-            <Color x:Key="SuccessColor">#34C759</Color>
-            <Color x:Key="BorderColor">#E5E5EA</Color>
+            <Color x:Key="TextPrimaryColor">#111827</Color>
+            <Color x:Key="TextSecondaryColor">#9CA3AF</Color>
+            <Color x:Key="SidebarColor">#F3F4F6</Color>
+            <Color x:Key="SidebarBorderColor">#E5E7EB</Color>
+            <Color x:Key="SidebarActiveColor">#E5E7EB</Color>
+            <Color x:Key="DangerColor">#EF4444</Color>
+            <Color x:Key="SuccessColor">#10B981</Color>
+            <Color x:Key="BorderColor">#E5E7EB</Color>
 
             <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
             <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
@@ -34,7 +34,7 @@
             <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
 
-            <!-- Apple-style Button -->
+            <!-- Simple Button -->
             <Style x:Key="ModernButton" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
@@ -48,7 +48,7 @@
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" 
                                     Background="{TemplateBinding Background}"
-                                    CornerRadius="10"
+                                    CornerRadius="8"
                                     Padding="{TemplateBinding Padding}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
@@ -57,8 +57,7 @@
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="border" Property="Background" Value="#D1D1D6"/>
-                                    <Setter Property="Foreground" Value="#FFFFFF"/>
+                                    <Setter TargetName="border" Property="Background" Value="#D1D5DB"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -71,7 +70,7 @@
                 <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             </Style>
 
-            <!-- Minimal TextBox -->
+            <!-- Simple TextBox -->
             <Style x:Key="ModernTextBox" TargetType="TextBox">
                 <Setter Property="Padding" Value="12,10"/>
                 <Setter Property="FontSize" Value="14"/>
@@ -85,7 +84,7 @@
                             <Border Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="8">
+                                    CornerRadius="6">
                                 <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -98,7 +97,7 @@
                 </Setter>
             </Style>
 
-            <!-- Minimal ComboBox -->
+            <!-- Simple ComboBox -->
             <Style x:Key="ModernComboBox" TargetType="ComboBox">
                 <Setter Property="Padding" Value="12,10"/>
                 <Setter Property="FontSize" Value="14"/>
@@ -108,46 +107,38 @@
                 <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             </Style>
 
-            <!-- Apple Card Style -->
+            <!-- Simple Card Style -->
             <Style x:Key="CardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource CardBrush}"/>
-                <Setter Property="CornerRadius" Value="12"/>
-                <Setter Property="Padding" Value="20"/>
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect BlurRadius="10" ShadowDepth="0" Opacity="0.08" Color="Black"/>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="CornerRadius" Value="8"/>
+                <Setter Property="Padding" Value="16"/>
+                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+                <Setter Property="BorderThickness" Value="1"/>
             </Style>
 
             <!-- Stats Card Style -->
             <Style x:Key="StatsCardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
-                <Setter Property="CornerRadius" Value="16"/>
-                <Setter Property="Padding" Value="24"/>
-                <Setter Property="Effect">
-                    <Setter.Value>
-                        <DropShadowEffect BlurRadius="20" ShadowDepth="4" Opacity="0.2" Color="#007AFF"/>
-                    </Setter.Value>
-                </Setter>
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="Padding" Value="20"/>
             </Style>
 
-            <!-- Apple Navigation Button -->
+            <!-- Simple Navigation Button -->
             <Style x:Key="NavButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="#86868B"/>
-                <Setter Property="Padding" Value="16,12"/>
+                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+                <Setter Property="Padding" Value="12,10"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontSize" Value="13"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border"
                                     Background="{TemplateBinding Background}"
                                     Padding="{TemplateBinding Padding}"
-                                    CornerRadius="8">
+                                    CornerRadius="6">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                                   VerticalAlignment="Center"/>
                             </Border>
@@ -162,14 +153,14 @@
                 </Setter>
             </Style>
 
-            <!-- Minimal DataGrid -->
+            <!-- Simple DataGrid -->
             <Style TargetType="DataGrid">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="RowBackground" Value="White"/>
                 <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-                <Setter Property="HorizontalGridLinesBrush" Value="#E5E5EA"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#E5E7EB"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="CanUserAddRows" Value="False"/>
                 <Setter Property="CanUserDeleteRows" Value="False"/>
@@ -180,16 +171,16 @@
             </Style>
 
             <Style TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="#F5F5F7"/>
-                <Setter Property="Foreground" Value="#86868B"/>
+                <Setter Property="Background" Value="#F9FAFB"/>
+                <Setter Property="Foreground" Value="#9CA3AF"/>
                 <Setter Property="FontWeight" Value="Medium"/>
-                <Setter Property="FontSize" Value="12"/>
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="FontSize" Value="11"/>
+                <Setter Property="Padding" Value="10,8"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
 
             <Style TargetType="DataGridCell">
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="Padding" Value="10,8"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -202,7 +193,7 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="#E3F2FD"/>
+                        <Setter Property="Background" Value="#F3F4F6"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -216,7 +207,7 @@
                 </Style.Triggers>
             </Style>
 
-            <!-- Minimal DatePicker -->
+            <!-- Simple DatePicker -->
             <Style TargetType="DatePicker">
                 <Setter Property="Padding" Value="12,10"/>
                 <Setter Property="FontSize" Value="14"/>

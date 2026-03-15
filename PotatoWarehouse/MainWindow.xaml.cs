@@ -108,7 +108,7 @@ public partial class MainWindow : Window
                 g.Key.CaliberId,
                 g.Key.VarietyName,
                 g.Key.CaliberName,
-                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
+                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount) / 1000.0
             })
             .ToList();
 
@@ -123,7 +123,7 @@ public partial class MainWindow : Window
             {
                 g.Key.VarietyId,
                 g.Key.CaliberId,
-                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
+                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount) / 1000.0
             })
             .ToList();
 
@@ -170,40 +170,32 @@ public partial class MainWindow : Window
             InventoryTree.Items.Add(varietyItem);
         }
 
-        TotalWeightText.Text = $"{totalWeight:N2} kg";
+        TotalWeightText.Text = $"{totalWeight:N2} t";
     }
 
     private StackPanel CreateVarietyHeader(string name, double weight)
     {
         var sp = new StackPanel { Orientation = Orientation.Horizontal };
-        var icon = new Border 
-        { 
-            Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(99, 102, 241)),
-            CornerRadius = new System.Windows.CornerRadius(6),
-            Padding = new Thickness(8, 4, 8, 4),
-            Margin = new Thickness(0, 0, 12, 0)
-        };
-        icon.Child = new TextBlock { Text = "🥔", FontSize = 12 };
         
         var nameText = new TextBlock 
         { 
             Text = name, 
             FontWeight = FontWeights.SemiBold, 
-            FontSize = 15,
+            FontSize = 14,
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(17, 24, 39)),
             VerticalAlignment = VerticalAlignment.Center
         };
         
         var weightText = new TextBlock 
         { 
-            Text = $"{weight:N2} kg", 
+            Text = $"{weight:N2} t", 
             FontWeight = FontWeights.Medium,
-            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(99, 102, 241)),
-            FontSize = 14,
-            Margin = new Thickness(16, 0, 0, 0),
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(16, 185, 129)),
+            FontSize = 13,
+            Margin = new Thickness(12, 0, 0, 0),
             VerticalAlignment = VerticalAlignment.Center
         };
 
-        sp.Children.Add(icon);
         sp.Children.Add(nameText);
         sp.Children.Add(weightText);
         return sp;
@@ -211,24 +203,24 @@ public partial class MainWindow : Window
 
     private StackPanel CreateCaliberHeader(string name, double weight)
     {
-        var sp = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(36, 0, 0, 0) };
+        var sp = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(24, 0, 0, 0) };
         
         var nameText = new TextBlock 
         { 
             Text = name, 
             FontWeight = FontWeights.Normal, 
-            FontSize = 14,
-            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(100, 116, 139)),
+            FontSize = 13,
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(107, 114, 128)),
             VerticalAlignment = VerticalAlignment.Center,
-            MinWidth = 120
+            MinWidth = 100
         };
         
         var weightText = new TextBlock 
         { 
-            Text = $"{weight:N2} kg", 
+            Text = $"{weight:N2} t", 
             FontWeight = FontWeights.Medium,
             Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(16, 185, 129)),
-            FontSize = 14,
+            FontSize = 13,
             VerticalAlignment = VerticalAlignment.Center
         };
 
@@ -300,42 +292,6 @@ public partial class MainWindow : Window
         OutgoingCaliberCombo.SelectedValuePath = "Id";
     }
 
-    private void OutgoingVariety_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        UpdateAvailableWeight();
-    }
-
-    private void OutgoingCaliber_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        UpdateAvailableWeight();
-    }
-
-    private void UpdateAvailableWeight()
-    {
-        if (OutgoingVarietyCombo.SelectedValue == null || OutgoingCaliberCombo.SelectedValue == null)
-        {
-            return;
-        }
-
-        using var context = new WarehouseDbContext();
-        
-        var availableWeight = context.IncomingPotatoes
-            .Where(i => i.SeasonId == _activeSeasonId && 
-                        i.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
-                        i.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
-            .Sum(i => i.ContainerWeight * i.ContainerCount);
-
-        var usedWeight = context.OutgoingPotatoes
-            .Where(o => o.SeasonId == _activeSeasonId && 
-                        o.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
-                        o.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
-            .Sum(o => o.ContainerWeight * o.ContainerCount);
-
-        var remainingWeight = availableWeight - usedWeight;
-        
-        OutgoingAvailableText.Text = $"Pieejams: {remainingWeight:N2} kg";
-    }
-
     private void LoadSettingsData()
     {
         using var context = new WarehouseDbContext();
@@ -389,7 +345,7 @@ public partial class MainWindow : Window
             Date = IncomingDatePicker.SelectedDate ?? DateTime.Today,
             VarietyId = (int)IncomingVarietyCombo.SelectedValue,
             CaliberId = (int)IncomingCaliberCombo.SelectedValue,
-            ContainerWeight = weight,
+            ContainerWeight = weight * 1000,
             ContainerCount = count,
             SeasonId = _activeSeasonId
         };
@@ -438,11 +394,13 @@ public partial class MainWindow : Window
             return;
         }
 
-        if (!double.TryParse(OutgoingWeight.Text, out double totalWeight) || totalWeight <= 0)
+        if (!double.TryParse(OutgoingWeight.Text, out double totalWeightTons) || totalWeightTons <= 0)
         {
             MessageBox.Show("Lūdzu, ievadiet derīgu svaru!");
             return;
         }
+
+        double totalWeightKg = totalWeightTons * 1000;
 
         using var context = new WarehouseDbContext();
         
@@ -460,9 +418,9 @@ public partial class MainWindow : Window
 
         var remainingWeight = availableWeight - usedWeight;
 
-        if (totalWeight > remainingWeight)
+        if (totalWeightKg > remainingWeight)
         {
-            MessageBox.Show($"N pietiek atlikuma! Pieejams: {remainingWeight:N2} kg");
+            MessageBox.Show($"Ne pietiek atlikuma! Pieejams: {remainingWeight/1000:N2} t");
             return;
         }
 
@@ -471,7 +429,7 @@ public partial class MainWindow : Window
             Date = OutgoingDatePicker.SelectedDate ?? DateTime.Today,
             VarietyId = (int)OutgoingVarietyCombo.SelectedValue,
             CaliberId = (int)OutgoingCaliberCombo.SelectedValue,
-            ContainerWeight = totalWeight,
+            ContainerWeight = totalWeightKg,
             ContainerCount = 1,
             Buyer = OutgoingBuyer.Text,
             SeasonId = _activeSeasonId
