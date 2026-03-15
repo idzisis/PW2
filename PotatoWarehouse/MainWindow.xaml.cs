@@ -136,10 +136,105 @@ public partial class MainWindow : Window
             Weight = i.Weight - (outgoing.FirstOrDefault(o => o.VarietyId == i.VarietyId && o.CaliberId == i.CaliberId)?.Weight ?? 0)
         }).Where(x => x.Weight > 0).ToList();
 
-        InventoryGrid.ItemsSource = inventory;
+        // Group by variety for TreeView
+        var groupedByVariety = inventory
+            .GroupBy(i => i.VarietyName)
+            .ToList();
 
-        var totalWeight = inventory.Sum(x => x.Weight);
+        InventoryTree.Items.Clear();
+        
+        double totalWeight = 0;
+
+        foreach (var varietyGroup in groupedByVariety)
+        {
+            var varietyWeight = varietyGroup.Sum(x => x.Weight);
+            totalWeight += varietyWeight;
+
+            var varietyItem = new TreeViewItem
+            {
+                Header = CreateVarietyHeader(varietyGroup.Key, varietyWeight),
+                IsExpanded = true
+            };
+
+            foreach (var item in varietyGroup)
+            {
+                var caliberItem = new TreeViewItem
+                {
+                    Header = CreateCaliberHeader(item.CaliberName, item.Weight),
+                    IsExpanded = true,
+                    Padding = new Thickness(0, 4, 0, 4)
+                };
+                varietyItem.Items.Add(caliberItem);
+            }
+
+            InventoryTree.Items.Add(varietyItem);
+        }
+
         TotalWeightText.Text = $"{totalWeight:N2} kg";
+    }
+
+    private StackPanel CreateVarietyHeader(string name, double weight)
+    {
+        var sp = new StackPanel { Orientation = Orientation.Horizontal };
+        var icon = new Border 
+        { 
+            Background = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(99, 102, 241)),
+            CornerRadius = new System.Windows.CornerRadius(6),
+            Padding = new Thickness(8, 4, 8, 4),
+            Margin = new Thickness(0, 0, 12, 0)
+        };
+        icon.Child = new TextBlock { Text = "🥔", FontSize = 12 };
+        
+        var nameText = new TextBlock 
+        { 
+            Text = name, 
+            FontWeight = FontWeights.SemiBold, 
+            FontSize = 15,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+        
+        var weightText = new TextBlock 
+        { 
+            Text = $"{weight:N2} kg", 
+            FontWeight = FontWeights.Medium,
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(99, 102, 241)),
+            FontSize = 14,
+            Margin = new Thickness(16, 0, 0, 0),
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        sp.Children.Add(icon);
+        sp.Children.Add(nameText);
+        sp.Children.Add(weightText);
+        return sp;
+    }
+
+    private StackPanel CreateCaliberHeader(string name, double weight)
+    {
+        var sp = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(36, 0, 0, 0) };
+        
+        var nameText = new TextBlock 
+        { 
+            Text = name, 
+            FontWeight = FontWeights.Normal, 
+            FontSize = 14,
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(100, 116, 139)),
+            VerticalAlignment = VerticalAlignment.Center,
+            MinWidth = 120
+        };
+        
+        var weightText = new TextBlock 
+        { 
+            Text = $"{weight:N2} kg", 
+            FontWeight = FontWeights.Medium,
+            Foreground = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(16, 185, 129)),
+            FontSize = 14,
+            VerticalAlignment = VerticalAlignment.Center
+        };
+
+        sp.Children.Add(nameText);
+        sp.Children.Add(weightText);
+        return sp;
     }
 
     private void LoadIncomingData()
