@@ -93,26 +93,36 @@ public partial class MainWindow : Window
     {
         using var context = new WarehouseDbContext();
 
-        var incoming = context.IncomingPotatoes
-            .Where(i => i.SeasonId == _activeSeasonId)
-            .GroupBy(i => new { i.VarietyId, i.CaliberId, VarietyName = i.Variety.Name, CaliberName = i.Caliber.Name })
+        var incomingRaw = (from i in context.IncomingPotatoes
+                          join v in context.Varieties on i.VarietyId equals v.Id
+                          join c in context.Calibers on i.CaliberId equals c.Id
+                          where i.SeasonId == _activeSeasonId
+                          select new { i.VarietyId, i.CaliberId, VarietyName = v.Name, CaliberName = c.Name, i.ContainerWeight, i.ContainerCount })
+                          .ToList();
+
+        var incoming = incomingRaw
+            .GroupBy(i => new { i.VarietyId, i.CaliberId, i.VarietyName, i.CaliberName })
             .Select(g => new
             {
-                VarietyId = g.Key.VarietyId,
-                CaliberId = g.Key.CaliberId,
-                VarietyName = g.Key.VarietyName,
-                CaliberName = g.Key.CaliberName,
+                g.Key.VarietyId,
+                g.Key.CaliberId,
+                g.Key.VarietyName,
+                g.Key.CaliberName,
                 Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
             })
             .ToList();
 
-        var outgoing = context.OutgoingPotatoes
+        var outgoingRaw = context.OutgoingPotatoes
             .Where(o => o.SeasonId == _activeSeasonId)
+            .Select(o => new { o.VarietyId, o.CaliberId, o.ContainerWeight, o.ContainerCount })
+            .ToList();
+
+        var outgoing = outgoingRaw
             .GroupBy(o => new { o.VarietyId, o.CaliberId })
             .Select(g => new
             {
-                VarietyId = g.Key.VarietyId,
-                CaliberId = g.Key.CaliberId,
+                g.Key.VarietyId,
+                g.Key.CaliberId,
                 Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
             })
             .ToList();
