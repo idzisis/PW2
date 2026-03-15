@@ -1,87 +1,50 @@
-# Active Context: Next.js Starter Template
+# Active Context: PotatoWarehouse - C# WPF Application
 
 ## Current State
 
-**Template Status**: ✅ Ready for development
+**Project Status**: ✅ Complete
 
-The template is a clean Next.js 16 starter with TypeScript and Tailwind CSS 4. It's ready for AI-assisted expansion to build any type of application.
+A C# WPF desktop application for potato warehouse inventory management has been created. The application uses SQLite for data persistence and features a modern green-themed UI design.
 
 ## Recently Completed
 
-- [x] Base Next.js 16 setup with App Router
-- [x] TypeScript configuration with strict mode
-- [x] Tailwind CSS 4 integration
-- [x] ESLint configuration
-- [x] Memory bank documentation
-- [x] Recipe system for common features
+- [x] Created C# WPF project structure
+- [x] Implemented database models (Season, Variety, Caliber, IncomingPotato, OutgoingPotato)
+- [x] Created SQLite database with Entity Framework Core
+- [x] Built 4 UI sections: Sākumlapa, Ienākošie, Izejošie, Iestatījumi
+- [x] Implemented season-based data filtering
+- [x] Added inventory calculation (incoming - outgoing)
+- [x] Created modern green-themed UI with card-based design
 
-## Current Structure
+## Project Structure
 
-| File/Directory | Purpose | Status |
-|----------------|---------|--------|
-| `src/app/page.tsx` | Home page | ✅ Ready |
-| `src/app/layout.tsx` | Root layout | ✅ Ready |
-| `src/app/globals.css` | Global styles | ✅ Ready |
-| `.kilocode/` | AI context & recipes | ✅ Ready |
+| File/Directory | Purpose |
+|----------------|---------|
+| `PotatoWarehouse/` | Main project folder |
+| `PotatoWarehouse/Models/Models.cs` | Database models |
+| `PotatoWarehouse/Data/WarehouseDbContext.cs` | EF Core DbContext |
+| `PotatoWarehouse/MainWindow.xaml` | Main UI |
+| `PotatoWarehouse/MainWindow.xaml.cs` | Code-behind logic |
+| `publish/PotatoWarehouse.exe` | Windows executable |
 
-## Current Focus
+## Features Implemented
 
-The template is ready. Next steps depend on user requirements:
+1. **Sākumlapa (Homepage)**: Shows total potato inventory by variety and caliber
+2. **Ienākošie (Incoming)**: Add/view incoming potato shipments
+3. **Izejošie (Outgoing)**: Add/view outgoing shipments with buyer info
+4. **Iestatījumi (Settings)**: Manage seasons, varieties, and calibers
 
-1. What type of application to build
-2. What features are needed
-3. Design/branding preferences
+## How to Use
 
-## Quick Start Guide
-
-### To add a new page:
-
-Create a file at `src/app/[route]/page.tsx`:
-```tsx
-export default function NewPage() {
-  return <div>New page content</div>;
-}
-```
-
-### To add components:
-
-Create `src/components/` directory and add components:
-```tsx
-// src/components/ui/Button.tsx
-export function Button({ children }: { children: React.ReactNode }) {
-  return <button className="px-4 py-2 bg-blue-600 text-white rounded">{children}</button>;
-}
-```
-
-### To add a database:
-
-Follow `.kilocode/recipes/add-database.md`
-
-### To add API routes:
-
-Create `src/app/api/[route]/route.ts`:
-```tsx
-import { NextResponse } from "next/server";
-
-export async function GET() {
-  return NextResponse.json({ message: "Hello" });
-}
-```
-
-## Available Recipes
-
-| Recipe | File | Use Case |
-|--------|------|----------|
-| Add Database | `.kilocode/recipes/add-database.md` | Data persistence with Drizzle + SQLite |
-
-## Pending Improvements
-
-- [ ] Add more recipes (auth, email, etc.)
-- [ ] Add example components
-- [ ] Add testing setup recipe
+1. Open `PotatoWarehouse/PotatoWarehouse.csproj` in Visual Studio
+2. Run the application (F5)
+3. In Settings, create a season (e.g., "2026. sezona")
+4. Add varieties (Vineta, Bellarosa, etc.)
+5. Use default or custom calibers
+6. Add incoming and outgoing potato records
 
 ## Session History
 
 | Date | Changes |
 |------|---------|
-| Initial | Template created with base setup |
+| 2026-03-15 | Created PotatoWarehouse C# WPF application |
