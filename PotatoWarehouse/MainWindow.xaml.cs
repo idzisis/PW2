@@ -303,7 +303,10 @@ public partial class MainWindow : Window
         var activeSeason = seasons.FirstOrDefault(s => s.IsActive);
         if (activeSeason != null)
         {
+            _isLoadingSeason = true;
             SeasonCombo.SelectedItem = activeSeason;
+            _isLoadingSeason = false;
+            
             SeasonTargetWeight.Text = activeSeason.TargetWeight > 0 ? (activeSeason.TargetWeight / 1000).ToString("N3") : "";
             
             var incomingTotal = context.IncomingPotatoes
@@ -604,33 +607,39 @@ public partial class MainWindow : Window
         MessageBox.Show("Sezona veiksmīgi pievienota!");
     }
 
+    private bool _isLoadingSeason = false;
+    
     private void SeasonSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (SeasonCombo.SelectedItem is Season season)
-        {
-            _activeSeasonId = season.Id;
-            _activeSeasonName = season.Name;
-            SeasonLabel.Text = season.Name;
-            
-            using var context = new WarehouseDbContext();
-            SeasonTargetWeight.Text = season.TargetWeight > 0 ? (season.TargetWeight / 1000).ToString("N3") : "";
-            
-            var incomingTotal = context.IncomingPotatoes
-                .Where(i => i.SeasonId == season.Id)
-                .Sum(i => i.ContainerWeight * i.ContainerCount);
-            
-            var outgoingTotal = context.OutgoingPotatoes
-                .Where(o => o.SeasonId == season.Id)
-                .Sum(o => o.ContainerWeight * o.ContainerCount);
-            
-            var actualTotal = incomingTotal - outgoingTotal;
-            var remaining = season.TargetWeight - actualTotal;
-            
-            SeasonIncomingTotal.Text = (actualTotal / 1000).ToString("N3");
-            SeasonRemaining.Text = (remaining / 1000).ToString("N3");
-            
-            LoadSettingsData();
-        }
+        if (_isLoadingSeason || SeasonCombo.SelectedItem is not Season season)
+            return;
+        
+        _isLoadingSeason = true;
+        
+        _activeSeasonId = season.Id;
+        _activeSeasonName = season.Name;
+        SeasonLabel.Text = season.Name;
+        
+        using var context = new WarehouseDbContext();
+        SeasonTargetWeight.Text = season.TargetWeight > 0 ? (season.TargetWeight / 1000).ToString("N3") : "";
+        
+        var incomingTotal = context.IncomingPotatoes
+            .Where(i => i.SeasonId == season.Id)
+            .Sum(i => i.ContainerWeight * i.ContainerCount);
+        
+        var outgoingTotal = context.OutgoingPotatoes
+            .Where(o => o.SeasonId == season.Id)
+            .Sum(o => o.ContainerWeight * o.ContainerCount);
+        
+        var actualTotal = incomingTotal - outgoingTotal;
+        var remaining = season.TargetWeight - actualTotal;
+        
+        SeasonIncomingTotal.Text = (actualTotal / 1000).ToString("N3");
+        SeasonRemaining.Text = (remaining / 1000).ToString("N3");
+        
+        LoadSettingsData();
+        
+        _isLoadingSeason = false;
     }
 
     private void SetActiveSeason(object sender, RoutedEventArgs e)
