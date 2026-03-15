@@ -188,13 +188,57 @@ public partial class MainWindow : Window
         IncomingCaliberCombo.DisplayMemberPath = "Name";
         IncomingCaliberCombo.SelectedValuePath = "Id";
 
-        OutgoingVarietyCombo.ItemsSource = varieties;
+        var varietiesWithIncoming = context.IncomingPotatoes
+            .Where(i => i.SeasonId == _activeSeasonId)
+            .Select(i => i.VarietyId)
+            .Distinct()
+            .ToList();
+
+        var outgoingVarieties = varieties.Where(v => varietiesWithIncoming.Contains(v.Id)).ToList();
+
+        OutgoingVarietyCombo.ItemsSource = outgoingVarieties;
         OutgoingVarietyCombo.DisplayMemberPath = "Name";
         OutgoingVarietyCombo.SelectedValuePath = "Id";
 
         OutgoingCaliberCombo.ItemsSource = calibers;
         OutgoingCaliberCombo.DisplayMemberPath = "Name";
         OutgoingCaliberCombo.SelectedValuePath = "Id";
+    }
+
+    private void OutgoingVariety_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        UpdateAvailableWeight();
+    }
+
+    private void OutgoingCaliber_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        UpdateAvailableWeight();
+    }
+
+    private void UpdateAvailableWeight()
+    {
+        if (OutgoingVarietyCombo.SelectedValue == null || OutgoingCaliberCombo.SelectedValue == null)
+        {
+            return;
+        }
+
+        using var context = new WarehouseDbContext();
+        
+        var availableWeight = context.IncomingPotatoes
+            .Where(i => i.SeasonId == _activeSeasonId && 
+                        i.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
+                        i.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
+            .Sum(i => i.ContainerWeight * i.ContainerCount);
+
+        var usedWeight = context.OutgoingPotatoes
+            .Where(o => o.SeasonId == _activeSeasonId && 
+                        o.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
+                        o.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
+            .Sum(o => o.ContainerWeight * o.ContainerCount);
+
+        var remainingWeight = availableWeight - usedWeight;
+        
+        OutgoingAvailableText.Text = $"Pieejams: {remainingWeight:N2} kg";
     }
 
     private void LoadSettingsData()
@@ -299,19 +343,11 @@ public partial class MainWindow : Window
             return;
         }
 
-        if (!double.TryParse(OutgoingContainerWeight.Text, out double weight) || weight <= 0)
+        if (!double.TryParse(OutgoingWeight.Text, out double totalWeight) || totalWeight <= 0)
         {
-            MessageBox.Show("Lūdzu, ievadiet derīgu konteinera svaru!");
+            MessageBox.Show("Lūdzu, ievadiet derīgu svaru!");
             return;
         }
-
-        if (!int.TryParse(OutgoingContainerCount.Text, out int count) || count <= 0)
-        {
-            MessageBox.Show("Lūdzu, ievadiet derīgu konteineru skaitu!");
-            return;
-        }
-
-        double totalWeight = weight * count;
 
         using var context = new WarehouseDbContext();
         
@@ -340,8 +376,8 @@ public partial class MainWindow : Window
             Date = OutgoingDatePicker.SelectedDate ?? DateTime.Today,
             VarietyId = (int)OutgoingVarietyCombo.SelectedValue,
             CaliberId = (int)OutgoingCaliberCombo.SelectedValue,
-            ContainerWeight = weight,
-            ContainerCount = count,
+            ContainerWeight = totalWeight,
+            ContainerCount = 1,
             Buyer = OutgoingBuyer.Text,
             SeasonId = _activeSeasonId
         };
@@ -349,8 +385,7 @@ public partial class MainWindow : Window
         context.OutgoingPotatoes.Add(outgoing);
         context.SaveChanges();
 
-        OutgoingContainerWeight.Text = "";
-        OutgoingContainerCount.Text = "";
+        OutgoingWeight.Text = "";
         OutgoingBuyer.Text = "";
         LoadOutgoingData();
         MessageBox.Show("Ieraksts veiksmīgi pievienots!");
