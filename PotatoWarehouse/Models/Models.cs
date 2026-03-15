@@ -16,6 +16,8 @@ public class Season
 
     public bool IsActive { get; set; }
 
+    public double TargetWeight { get; set; }
+
     public virtual ICollection<Variety> Varieties { get; set; } = new List<Variety>();
     public virtual ICollection<Caliber> Calibers { get; set; } = new List<Caliber>();
     public virtual ICollection<IncomingPotato> IncomingPotatoes { get; set; } = new List<IncomingPotato>();
@@ -114,6 +116,11 @@ public class OutgoingPotato
 
     [ForeignKey("SeasonId")]
     public virtual Season? Season { get; set; }
+
+    public int? IncomingId { get; set; }
+
+    [ForeignKey("IncomingId")]
+    public virtual IncomingPotato? Incoming { get; set; }
 }
 
 public class AppSettings

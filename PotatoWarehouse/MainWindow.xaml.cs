@@ -304,6 +304,21 @@ public partial class MainWindow : Window
         if (activeSeason != null)
         {
             SeasonCombo.SelectedItem = activeSeason;
+            SeasonTargetWeight.Text = activeSeason.TargetWeight > 0 ? (activeSeason.TargetWeight / 1000).ToString("N3") : "";
+            
+            var incomingTotal = context.IncomingPotatoes
+                .Where(i => i.SeasonId == _activeSeasonId)
+                .Sum(i => i.ContainerWeight * i.ContainerCount);
+            
+            var outgoingTotal = context.OutgoingPotatoes
+                .Where(o => o.SeasonId == _activeSeasonId)
+                .Sum(o => o.ContainerWeight * o.ContainerCount);
+            
+            var actualTotal = incomingTotal - outgoingTotal;
+            var remaining = activeSeason.TargetWeight - actualTotal;
+            
+            SeasonIncomingTotal.Text = (actualTotal / 1000).ToString("N3");
+            SeasonRemaining.Text = (remaining / 1000).ToString("N3");
         }
 
         var varieties = context.Varieties
@@ -317,6 +332,77 @@ public partial class MainWindow : Window
             .OrderBy(c => c.DisplayOrder)
             .ToList();
         CalibersList.ItemsSource = calibers;
+    }
+
+    private void SaveSeasonTarget(object sender, RoutedEventArgs e)
+    {
+        if (SeasonCombo.SelectedItem is not Season season)
+        {
+            MessageBox.Show("Lūdzu, izvēlieties sezonu!");
+            return;
+        }
+
+        if (!double.TryParse(SeasonTargetWeight.Text, out double targetTons) || targetTons < 0)
+        {
+            MessageBox.Show("Lūdzu, ievadiet derīgu mērķa svaru!");
+            return;
+        }
+
+        using var context = new WarehouseDbContext();
+        var dbSeason = context.Seasons.Find(season.Id);
+        if (dbSeason != null)
+        {
+            dbSeason.TargetWeight = targetTons * 1000;
+            context.SaveChanges();
+            LoadSettingsData();
+            MessageBox.Show("Mērķis saglabāts!");
+        }
+    }
+
+    private void EditIncoming(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button btn && btn.Tag is int id)
+        {
+            using var context = new WarehouseDbContext();
+            var incoming = context.IncomingPotatoes.Find(id);
+            if (incoming != null)
+            {
+                IncomingDatePicker.SelectedDate = incoming.Date;
+                IncomingVarietyCombo.SelectedValue = incoming.VarietyId;
+                IncomingCaliberCombo.SelectedValue = incoming.CaliberId;
+                IncomingContainerWeight.Text = (incoming.ContainerWeight / 1000).ToString("N3");
+                IncomingContainerCount.Text = incoming.ContainerCount.ToString();
+                
+                context.IncomingPotatoes.Remove(incoming);
+                context.SaveChanges();
+                
+                LoadIncomingData();
+                MessageBox.Show("Ieraksts rediģēšanai atvērts!");
+            }
+        }
+    }
+
+    private void EditOutgoing(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button btn && btn.Tag is int id)
+        {
+            using var context = new WarehouseDbContext();
+            var outgoing = context.OutgoingPotatoes.Find(id);
+            if (outgoing != null)
+            {
+                OutgoingDatePicker.SelectedDate = outgoing.Date;
+                OutgoingVarietyCombo.SelectedValue = outgoing.VarietyId;
+                OutgoingCaliberCombo.SelectedValue = outgoing.CaliberId;
+                OutgoingWeight.Text = (outgoing.ContainerWeight / 1000).ToString("N3");
+                OutgoingBuyer.Text = outgoing.Buyer;
+                
+                context.OutgoingPotatoes.Remove(outgoing);
+                context.SaveChanges();
+                
+                LoadOutgoingData();
+                MessageBox.Show("Ieraksts rediģēšanai atvērts!");
+            }
+        }
     }
 
     private void AddIncoming(object sender, RoutedEventArgs e)
@@ -520,6 +606,31 @@ public partial class MainWindow : Window
 
     private void SeasonSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        if (SeasonCombo.SelectedItem is Season season)
+        {
+            _activeSeasonId = season.Id;
+            _activeSeasonName = season.Name;
+            SeasonLabel.Text = season.Name;
+            
+            using var context = new WarehouseDbContext();
+            SeasonTargetWeight.Text = season.TargetWeight > 0 ? (season.TargetWeight / 1000).ToString("N3") : "";
+            
+            var incomingTotal = context.IncomingPotatoes
+                .Where(i => i.SeasonId == season.Id)
+                .Sum(i => i.ContainerWeight * i.ContainerCount);
+            
+            var outgoingTotal = context.OutgoingPotatoes
+                .Where(o => o.SeasonId == season.Id)
+                .Sum(o => o.ContainerWeight * o.ContainerCount);
+            
+            var actualTotal = incomingTotal - outgoingTotal;
+            var remaining = season.TargetWeight - actualTotal;
+            
+            SeasonIncomingTotal.Text = (actualTotal / 1000).ToString("N3");
+            SeasonRemaining.Text = (remaining / 1000).ToString("N3");
+            
+            LoadSettingsData();
+        }
     }
 
     private void SetActiveSeason(object sender, RoutedEventArgs e)
