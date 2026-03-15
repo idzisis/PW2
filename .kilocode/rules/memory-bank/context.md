@@ -15,6 +15,13 @@ A C# WPF desktop application for potato warehouse inventory management has been 
 - [x] Implemented season-based data filtering
 - [x] Added inventory calculation (incoming - outgoing)
 - [x] Created modern green-themed UI with card-based design
+- [x] Added TargetWeight field to Season model
+- [x] Added TotalWeightTons property to IncomingPotato and OutgoingPotato
+- [x] Added edit buttons (✏️) to both Incoming and Outgoing tables
+- [x] Fixed form field sizes to be equal width
+- [x] Added auto-calculation for Total weight (weight * count)
+- [x] Added bold formatting to weight columns in DataGrids
+- [x] Added circular progress indicator in Settings for target vs actual
 
 ## Project Structure
 
@@ -30,9 +37,11 @@ A C# WPF desktop application for potato warehouse inventory management has been 
 ## Features Implemented
 
 1. **Sākumlapa (Homepage)**: Shows total potato inventory by variety and caliber
-2. **Ienākošie (Incoming)**: Add/view incoming potato shipments
+2. **Ienākošie (Incoming)**: Add/view incoming potato shipments with auto-calculated totals
 3. **Izejošie (Outgoing)**: Add/view outgoing shipments with buyer info
-4. **Iestatījumi (Settings)**: Manage seasons, varieties, and calibers
+4. **Iestatījumi (Settings)**: Manage seasons, varieties, calibers, and target weights
+5. **Edit functionality**: Click ✏️ to edit records (populates form, removes old record, user saves new)
+6. **Target tracking**: Circular progress shows % of target weight achieved with color coding (green=100%, blue>=75%, orange>=50%, red<50%)
 
 ## How to Use
 
@@ -48,3 +57,4 @@ A C# WPF desktop application for potato warehouse inventory management has been 
 | Date | Changes |
 |------|---------|
 | 2026-03-15 | Created PotatoWarehouse C# WPF application |
+| 2026-03-15 | Added target/usage section, edit buttons, equal field sizes, tons display, bold weight columns, circular progress indicator |

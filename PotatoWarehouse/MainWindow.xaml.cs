@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using Microsoft.EntityFrameworkCore;
 using PotatoWarehouse.Data;
 using PotatoWarehouse.Models;
@@ -347,6 +348,8 @@ public partial class MainWindow : Window
             
             SeasonIncomingTotal.Text = (actualTotal / 1000).ToString("N3");
             SeasonRemaining.Text = (remaining / 1000).ToString("N3");
+
+            UpdateProgressIndicator(actualTotal, activeSeason.TargetWeight);
         }
 
         var varieties = context.Varieties
@@ -360,6 +363,32 @@ public partial class MainWindow : Window
             .OrderBy(c => c.DisplayOrder)
             .ToList();
         CalibersList.ItemsSource = calibers;
+    }
+
+    private void UpdateProgressIndicator(double actual, double target)
+    {
+        if (target <= 0)
+        {
+            ProgressPercentText.Text = "0%";
+            ProgressArc.StrokeDashArray = new DoubleCollection { 0, 100 };
+            return;
+        }
+
+        double percent = Math.Min(100, (actual / target) * 100);
+        ProgressPercentText.Text = $"{percent:F0}%";
+
+        double dashLength = percent;
+        double dashGap = 100 - percent;
+        ProgressArc.StrokeDashArray = new DoubleCollection { dashLength, dashGap };
+
+        if (percent >= 100)
+            ProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(34, 197, 94));
+        else if (percent >= 75)
+            ProgressArc.Stroke = (System.Windows.Media.Brush)FindResource("AccentBrush");
+        else if (percent >= 50)
+            ProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(249, 115, 22));
+        else
+            ProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(239, 68, 68));
     }
 
     private void SaveSeasonTarget(object sender, RoutedEventArgs e)

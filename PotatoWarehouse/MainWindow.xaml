@@ -202,12 +202,12 @@
                     <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="80"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
 
@@ -327,10 +327,10 @@
                     <Border Grid.Row="1" Style="{StaticResource CardStyle}" Margin="0,0,0,24">
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="Auto"/>
                             </Grid.ColumnDefinitions>
@@ -482,28 +482,40 @@
 
                                     <Grid Grid.Row="1">
                                         <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                        <!-- Circular Progress -->
+                                        <Grid Grid.Column="0" Width="80" Height="80" Margin="0,0,16,0">
+                                            <Ellipse Stroke="#E5E7EB" StrokeThickness="6"/>
+                                            <Ellipse x:Name="ProgressArc" Stroke="{StaticResource AccentBrush}" StrokeThickness="6" StrokeDashArray="100" StrokeDashOffset="0">
+                                                <Ellipse.RenderTransform>
+                                                    <RotateTransform Angle="-90" CenterX="40" CenterY="40"/>
+                                                </Ellipse.RenderTransform>
+                                            </Ellipse>
+                                            <TextBlock x:Name="ProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                        </Grid>
+
+                                        <StackPanel Grid.Column="1" Margin="0,0,8,0">
                                             <TextBlock Text="Mērķa svars (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                             <TextBox x:Name="SeasonTargetWeight" Style="{StaticResource ModernTextBox}"/>
                                         </StackPanel>
 
-                                        <StackPanel Grid.Column="1" Margin="0,0,8,0">
+                                        <StackPanel Grid.Column="2" Margin="0,0,8,0">
                                             <TextBlock Text="Ienācis (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                             <TextBox x:Name="SeasonIncomingTotal" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F3F4F6"/>
                                         </StackPanel>
 
-                                        <StackPanel Grid.Column="2" Margin="0,0,8,0">
+                                        <StackPanel Grid.Column="3" Margin="0,0,8,0">
                                             <TextBlock Text="Atlikums (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
                                             <TextBox x:Name="SeasonRemaining" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F3F4F6"/>
                                         </StackPanel>
 
-                                        <Button Grid.Column="3" Content="Saglabāt" Style="{StaticResource ModernButton}" Click="SaveSeasonTarget" VerticalAlignment="Bottom"/>
+                                        <Button Grid.Column="4" Content="Saglabāt" Style="{StaticResource ModernButton}" Click="SaveSeasonTarget" VerticalAlignment="Bottom"/>
                                     </Grid>
                                 </Grid>
                             </Border>
