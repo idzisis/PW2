@@ -102,7 +102,7 @@ public partial class MainWindow : Window
                 CaliberId = g.Key.CaliberId,
                 VarietyName = g.Key.VarietyName,
                 CaliberName = g.Key.CaliberName,
-                Weight = g.Sum(x => x.TotalWeight)
+                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
             })
             .ToList();
 
@@ -113,7 +113,7 @@ public partial class MainWindow : Window
             {
                 VarietyId = g.Key.VarietyId,
                 CaliberId = g.Key.CaliberId,
-                Weight = g.Sum(x => x.TotalWeight)
+                Weight = g.Sum(x => x.ContainerWeight * x.ContainerCount)
             })
             .ToList();
 
