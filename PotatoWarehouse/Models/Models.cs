@@ -75,7 +75,6 @@ public class IncomingPotato
 
     public int ContainerCount { get; set; }
 
-    [NotMapped]
     public double TotalWeight => ContainerWeight * ContainerCount;
 
     public int SeasonId { get; set; }
@@ -105,7 +104,6 @@ public class OutgoingPotato
 
     public int ContainerCount { get; set; }
 
-    [NotMapped]
     public double TotalWeight => ContainerWeight * ContainerCount;
 
     [Required]

@@ -309,13 +309,13 @@ public partial class MainWindow : Window
             .Where(i => i.SeasonId == _activeSeasonId && 
                         i.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
                         i.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
-            .Sum(i => i.TotalWeight);
+            .Sum(i => i.ContainerWeight * i.ContainerCount);
 
         var usedWeight = context.OutgoingPotatoes
             .Where(o => o.SeasonId == _activeSeasonId && 
                         o.VarietyId == (int)OutgoingVarietyCombo.SelectedValue && 
                         o.CaliberId == (int)OutgoingCaliberCombo.SelectedValue)
-            .Sum(o => o.TotalWeight);
+            .Sum(o => o.ContainerWeight * o.ContainerCount);
 
         var remainingWeight = availableWeight - usedWeight;
 
