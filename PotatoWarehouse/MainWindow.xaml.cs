@@ -198,13 +198,6 @@ public partial class MainWindow : Window
         TotalWeightText.Text = $"{totalWeight:N2} t";
 
         LoadHomeProgress();
-        LoadHomeHeader();
-    }
-
-    private void LoadHomeHeader()
-    {
-        HomeDateText.Text = DateTime.Now.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("lv-LV"));
-        HomeSeasonText.Text = _activeSeasonName;
     }
 
     private void LoadHomeProgress()
@@ -226,9 +219,8 @@ public partial class MainWindow : Window
         var actual = incomingTotal;
         var outgoing = outgoingTotal;
 
-        HomeTargetText.Text = $"{actual / 1000:N1} / {target / 1000:N1} t";
-        HomeIncomingText.Text = $"{actual / 1000:N1} t";
-        HomeOutgoingText.Text = $"{outgoing / 1000:N1} t";
+        HomeTargetText.Text = $"{actual / 1000:N1} t";
+        HomeActualText.Text = $"{actual / 1000:N1} t";
 
         if (target <= 0)
         {
