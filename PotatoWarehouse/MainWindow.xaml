@@ -83,89 +83,138 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <TextBlock Grid.Row="0" 
-                               Text="Kartupeļu atlikums noliktavā" 
-                               FontSize="32" 
-                               FontWeight="Bold"
-                               Foreground="{StaticResource TextPrimaryBrush}"
-                               Margin="0,0,0,8"/>
-                    <TextBlock Grid.Row="1"
-                               Text="Pārskats par pieejamo kartupeļu daudzumu"
-                               FontSize="15"
-                               Foreground="{StaticResource TextSecondaryBrush}"
-                               Margin="0,0,0,24"/>
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Dashboard" FontSize="28" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                            <TextBlock x:Name="HomeDateText" Text="" FontSize="14" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                        </StackPanel>
+                        <Border Grid.Column="1" Background="{StaticResource AccentBrush}" CornerRadius="8" Padding="12,8" VerticalAlignment="Center">
+                            <TextBlock x:Name="HomeSeasonText" Text="2026" FontSize="13" FontWeight="SemiBold" Foreground="White"/>
+                        </Border>
+                    </Grid>
 
-                    <!-- Stats Cards Row -->
-                    <Grid Grid.Row="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                    <!-- Stats Cards Grid -->
+                    <Grid Grid.Row="1" Margin="0,0,0,24">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <!-- Total Summary Card -->
-                        <Border Grid.Row="0" Style="{StaticResource StatsCardStyle}" VerticalAlignment="Top" Margin="0,0,16,24">
-                            <Border.Background>
-                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                    <GradientStop Color="#6366F1" Offset="0"/>
-                                    <GradientStop Color="#4F46E5" Offset="1"/>
-                                </LinearGradientBrush>
-                            </Border.Background>
+                        <!-- Total Inventory Card -->
+                        <Border Grid.Column="0" CornerRadius="16" Padding="20" Background="#6366F1">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.3" Color="#6366F1"/>
+                            </Border.Effect>
                             <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="Auto"/>
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="KOPĒJAIS ATLIKUMS" 
-                                               FontSize="13" 
-                                               FontWeight="SemiBold"
-                                               Foreground="#C7D2FE"
-                                               Margin="0,0,0,8"/>
-                                    <TextBlock x:Name="TotalWeightText" 
-                                               Text="0 kg" 
-                                               FontSize="48" 
-                                               FontWeight="Bold"
-                                               Foreground="White"/>
-                                    <TextBlock Text="kartupeļu noliktavā"
-                                               FontSize="14"
-                                               Foreground="#C7D2FE"
-                                               Margin="0,8,0,0"/>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                                    <Border Background="White" CornerRadius="8" Padding="8">
+                                        <TextBlock Text="📦" FontSize="18"/>
+                                    </Border>
+                                    <TextBlock Text="Kopējais atlikums" Foreground="#C7D2FE" FontSize="13" Margin="10,0,0,0" VerticalAlignment="Center"/>
                                 </StackPanel>
-                                <Border Grid.Column="1" Background="#4F46E5" CornerRadius="50" Width="100" Height="100" Opacity="0.3">
-                                    <TextBlock Text="🥔" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
+                                <TextBlock Grid.Row="1" x:Name="TotalWeightText" Text="0 t" FontSize="36" FontWeight="Bold" Foreground="White"/>
+                                <TextBlock Grid.Row="2" Text="noliktavā" Foreground="#C7D2FE" FontSize="13" Margin="0,4,0,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Incoming Card -->
+                        <Border Grid.Column="2" CornerRadius="16" Padding="20" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.1" Color="#000000"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                                    <Border Background="#ECFDF5" CornerRadius="8" Padding="8">
+                                        <TextBlock Text="📥" FontSize="18"/>
+                                    </Border>
+                                    <TextBlock Text="Ienācis" Foreground="#9CA3AF" FontSize="13" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="1" x:Name="HomeIncomingText" Text="0 t" FontSize="36" FontWeight="Bold" Foreground="#10B981"/>
+                                <TextBlock Grid.Row="2" Text="šajā sezonā" Foreground="#9CA3AF" FontSize="13" Margin="0,4,0,0"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Outgoing Card -->
+                        <Border Grid.Column="4" CornerRadius="16" Padding="20" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.1" Color="#000000"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                                    <Border Background="#FEF3C7" CornerRadius="8" Padding="8">
+                                        <TextBlock Text="📤" FontSize="18"/>
+                                    </Border>
+                                    <TextBlock Text="Izejis" Foreground="#9CA3AF" FontSize="13" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <TextBlock Grid.Row="1" x:Name="HomeOutgoingText" Text="0 t" FontSize="36" FontWeight="Bold" Foreground="#F59E0B"/>
+                                <TextBlock Grid.Row="2" Text="šajā sezonā" Foreground="#9CA3AF" FontSize="13" Margin="0,4,0,0"/>
                             </Grid>
                         </Border>
 
                         <!-- Target Progress Card -->
-                        <Border Grid.Row="0" Style="{StaticResource CardStyle}" VerticalAlignment="Top" Margin="0,0,0,24" Width="200" HorizontalAlignment="Right">
-                            <StackPanel>
-                                <TextBlock Text="MĒRĶA PROGRESS" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,16" HorizontalAlignment="Center"/>
-                                <Grid Width="80" Height="80" HorizontalAlignment="Center" Margin="0,0,0,12">
-                                    <Ellipse Stroke="#E5E7EB" StrokeThickness="6"/>
-                                    <Ellipse x:Name="HomeProgressArc" Stroke="{StaticResource AccentBrush}" StrokeThickness="6" StrokeDashArray="100" StrokeDashOffset="0">
+                        <Border Grid.Column="6" CornerRadius="16" Padding="20" Background="White">
+                            <Border.Effect>
+                                <DropShadowEffect BlurRadius="20" ShadowDepth="2" Opacity="0.1" Color="#000000"/>
+                            </Border.Effect>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,12">
+                                    <Border Background="#DBEAFE" CornerRadius="8" Padding="8">
+                                        <TextBlock Text="🎯" FontSize="18"/>
+                                    </Border>
+                                    <TextBlock Text="Mērķis" Foreground="#9CA3AF" FontSize="13" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                                <Grid Grid.Row="1" HorizontalAlignment="Center" Margin="0,0,0,8">
+                                    <Ellipse Width="60" Height="60" Stroke="#E5E7EB" StrokeThickness="5"/>
+                                    <Ellipse x:Name="HomeProgressArc" Width="60" Height="60" Stroke="{StaticResource AccentBrush}" StrokeThickness="5" StrokeDashArray="100" StrokeDashOffset="0">
                                         <Ellipse.RenderTransform>
-                                            <RotateTransform Angle="-90" CenterX="40" CenterY="40"/>
+                                            <RotateTransform Angle="-90" CenterX="30" CenterY="30"/>
                                         </Ellipse.RenderTransform>
                                     </Ellipse>
-                                    <TextBlock x:Name="HomeProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                    <TextBlock x:Name="HomeProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
                                 </Grid>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,4">
-                                    <TextBlock Text="Mērķis: " FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                    <TextBlock x:Name="HomeTargetText" Text="0 t" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="HomeTargetText" Text="0 / 0 t" FontSize="12" Foreground="#9CA3AF"/>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                    <TextBlock Text="Ienācis: " FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
-                                    <TextBlock x:Name="HomeActualText" Text="0 t" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/>
-                                </StackPanel>
-                            </StackPanel>
+                            </Grid>
                         </Border>
+                    </Grid>
 
-                        <!-- Details List -->
-                        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
+                    <!-- Details List -->
+                    <Border Grid.Row="3" Style="{StaticResource CardStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>

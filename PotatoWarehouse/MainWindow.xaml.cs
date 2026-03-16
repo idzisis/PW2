@@ -198,6 +198,13 @@ public partial class MainWindow : Window
         TotalWeightText.Text = $"{totalWeight:N2} t";
 
         LoadHomeProgress();
+        LoadHomeHeader();
+    }
+
+    private void LoadHomeHeader()
+    {
+        HomeDateText.Text = DateTime.Now.ToString("dddd, d MMMM yyyy", new System.Globalization.CultureInfo("lv-LV"));
+        HomeSeasonText.Text = _activeSeasonName;
     }
 
     private void LoadHomeProgress()
@@ -211,11 +218,17 @@ public partial class MainWindow : Window
             .Where(i => i.SeasonId == _activeSeasonId)
             .Sum(i => i.ContainerWeight * i.ContainerCount);
 
+        var outgoingTotal = context.OutgoingPotatoes
+            .Where(o => o.SeasonId == _activeSeasonId)
+            .Sum(o => o.ContainerWeight * o.ContainerCount);
+
         var target = season.TargetWeight;
         var actual = incomingTotal;
+        var outgoing = outgoingTotal;
 
-        HomeTargetText.Text = $"{target / 1000:N1} t";
-        HomeActualText.Text = $"{actual / 1000:N1} t";
+        HomeTargetText.Text = $"{actual / 1000:N1} / {target / 1000:N1} t";
+        HomeIncomingText.Text = $"{actual / 1000:N1} t";
+        HomeOutgoingText.Text = $"{outgoing / 1000:N1} t";
 
         if (target <= 0)
         {
