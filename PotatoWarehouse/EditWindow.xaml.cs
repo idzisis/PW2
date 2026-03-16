@@ -22,6 +22,8 @@ public partial class EditWindow : Window
         _seasonId = seasonId;
 
         LoadData();
+
+        HeaderText.Text = _recordType == "Incoming" ? "Rediģēt ienākošo" : "Rediģēt izejošo";
     }
 
     private void LoadData()
