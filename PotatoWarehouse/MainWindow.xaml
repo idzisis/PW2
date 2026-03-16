@@ -41,26 +41,26 @@
                 <StackPanel Margin="12,0,12,16">
                     <Button Style="{StaticResource NavButton}" Click="NavigateHome" x:Name="HomeNav" Margin="0,0,0,4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="🏠" FontSize="16" Margin="0,0,14,0"/>
-                            <TextBlock Text="Dashboard" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="🏠" FontSize="16" Margin="0,0,14,0" Foreground="White"/>
+                            <TextBlock Text="Dashboard" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource NavButton}" Click="NavigateIncoming" x:Name="IncomingNav" Margin="0,0,0,4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📥" FontSize="16" Margin="0,0,14,0"/>
-                            <TextBlock Text="Ienākošie" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="📥" FontSize="16" Margin="0,0,14,0" Foreground="White"/>
+                            <TextBlock Text="Ienākošie" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource NavButton}" Click="NavigateOutgoing" x:Name="OutgoingNav" Margin="0,0,0,4">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="📤" FontSize="16" Margin="0,0,14,0"/>
-                            <TextBlock Text="Izejošie" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="📤" FontSize="16" Margin="0,0,14,0" Foreground="White"/>
+                            <TextBlock Text="Izejošie" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource NavButton}" Click="NavigateSettings" x:Name="SettingsNav">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="⚙️" FontSize="16" Margin="0,0,14,0"/>
-                            <TextBlock Text="Iestatījumi" VerticalAlignment="Center" FontSize="14"/>
+                            <TextBlock Text="⚙️" FontSize="16" Margin="0,0,14,0" Foreground="White"/>
+                            <TextBlock Text="Iestatījumi" VerticalAlignment="Center" FontSize="14" Foreground="White"/>
                         </StackPanel>
                     </Button>
                 </StackPanel>
@@ -502,168 +502,159 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0" Margin="0,0,0,8">
-                        <TextBlock Text="Iestatījumi" 
-                                   FontSize="32" 
-                                   FontWeight="Bold"
-                                   Foreground="{StaticResource TextPrimaryBrush}"/>
-                        <TextBlock Text="Konfigurējiet sezonas, šķirnes un kalibrus"
-                                   FontSize="15"
-                                   Foreground="{StaticResource TextSecondaryBrush}"
-                                   Margin="0,4,0,24"/>
+                    <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                        <TextBlock Text="Iestatījumi" FontSize="32" FontWeight="Bold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                        <TextBlock Text="Konfigurējiet sezonas, šķirnes un kalibrus" FontSize="15" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,6,0,0"/>
                     </StackPanel>
 
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                        <StackPanel>
-                            <!-- Season Management -->
-                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="20"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="20"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.Row="0" Text="Sezonas" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
-
-                                    <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
-                                        <TextBox x:Name="NewSeasonName" Style="{StaticResource ModernTextBox}" Width="180" Margin="0,0,8,0"/>
-                                        <Button Content="+ Pievienot" Style="{StaticResource ModernButton}" Click="AddSeason"/>
+                            <!-- Season Management - Left -->
+                            <Border Grid.Column="0" Grid.Row="0" Style="{StaticResource CardStyle}" Padding="20">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                        <Border Background="#E0F2FE" CornerRadius="10" Padding="10">
+                                            <TextBlock Text="📅" FontSize="18"/>
+                                        </Border>
+                                        <TextBlock Text="Sezonas" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
                                     </StackPanel>
 
-                                    <Grid Grid.Row="2">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <TextBox x:Name="NewSeasonName" Style="{StaticResource ModernTextBox}" Width="140" Margin="0,0,8,0"/>
+                                        <Button Content="+" Style="{StaticResource ModernButton}" Click="AddSeason" Padding="16,10"/>
+                                    </StackPanel>
+
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
-
-                                        <ComboBox Grid.Column="0" x:Name="SeasonCombo" Style="{StaticResource ModernComboBox}" DisplayMemberPath="Name" SelectionChanged="SeasonSelectionChanged"/>
-                                        <Button Grid.Column="1" Content="Aktīvā" Style="{StaticResource AccentButton}" Click="SetActiveSeason" Margin="8,0,0,0"/>
+                                        <ComboBox Grid.Column="0" x:Name="SeasonCombo" Style="{StaticResource ModernComboBox}" DisplayMemberPath="Name"/>
+                                        <Button Grid.Column="1" Content="Aktīvā" Style="{StaticResource AccentButton}" Click="SetActiveSeason" Margin="8,0,0,0" Padding="14,10"/>
                                     </Grid>
-                                </Grid>
+                                </StackPanel>
                             </Border>
 
-                            <!-- Usage/Target Section -->
-                            <Border Style="{StaticResource CardStyle}" Margin="0,0,0,16">
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
+                            <!-- Target/Usage - Right -->
+                            <Border Grid.Column="2" Grid.Row="0" Style="{StaticResource CardStyle}" Padding="20">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                        <Border Background="#FEF3C7" CornerRadius="10" Padding="10">
+                                            <TextBlock Text="🎯" FontSize="18"/>
+                                        </Border>
+                                        <TextBlock Text="Mērķis" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                                    </StackPanel>
 
-                                    <TextBlock Grid.Row="0" Text="Mērķis / Izmantošana" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
-
-                                    <Grid Grid.Row="1">
+                                    <Grid Margin="0,0,0,12">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto"/>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="Auto"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <!-- Circular Progress -->
-                                        <Grid Grid.Column="0" Width="80" Height="80" Margin="0,0,16,0">
-                                            <Ellipse Stroke="#E5E7EB" StrokeThickness="6"/>
-                                            <Ellipse x:Name="ProgressArc" Stroke="{StaticResource AccentBrush}" StrokeThickness="6" StrokeDashArray="100" StrokeDashOffset="0">
+                                        <Grid Grid.Column="0" Width="60" Height="60" Margin="0,0,16,0">
+                                            <Ellipse Stroke="#E2E8F0" StrokeThickness="5"/>
+                                            <Ellipse x:Name="ProgressArc" Stroke="#FFA033" StrokeThickness="5" StrokeDashArray="100" StrokeDashOffset="0">
                                                 <Ellipse.RenderTransform>
-                                                    <RotateTransform Angle="-90" CenterX="40" CenterY="40"/>
+                                                    <RotateTransform Angle="-90" CenterX="30" CenterY="30"/>
                                                 </Ellipse.RenderTransform>
                                             </Ellipse>
-                                            <TextBlock x:Name="ProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="14" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                            <TextBlock x:Name="ProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="12" Foreground="{StaticResource TextPrimaryBrush}"/>
                                         </Grid>
 
-                                        <StackPanel Grid.Column="1" Margin="0,0,8,0">
-                                            <TextBlock Text="Mērķa svars (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
+                                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                            <TextBlock Text="Mērķa svars (t)" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
                                             <TextBox x:Name="SeasonTargetWeight" Style="{StaticResource ModernTextBox}"/>
                                         </StackPanel>
-
-                                        <StackPanel Grid.Column="2" Margin="0,0,8,0">
-                                            <TextBlock Text="Ienācis (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
-                                            <TextBox x:Name="SeasonIncomingTotal" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F3F4F6"/>
-                                        </StackPanel>
-
-                                        <StackPanel Grid.Column="3" Margin="0,0,8,0">
-                                            <TextBlock Text="Atlikums (t)" Margin="0,0,0,6" Foreground="{StaticResource TextSecondaryBrush}" FontSize="12"/>
-                                            <TextBox x:Name="SeasonRemaining" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F3F4F6"/>
-                                        </StackPanel>
-
-                                        <Button Grid.Column="4" Content="Saglabāt" Style="{StaticResource ModernButton}" Click="SaveSeasonTarget" VerticalAlignment="Bottom"/>
                                     </Grid>
-                                </Grid>
+
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                            <TextBlock Text="Ienācis (t)" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                                            <TextBox x:Name="SeasonIncomingTotal" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F8FAFC"/>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="Atlikums (t)" FontSize="12" Foreground="#64748B" Margin="0,0,0,6"/>
+                                            <TextBox x:Name="SeasonRemaining" Style="{StaticResource ModernTextBox}" IsReadOnly="True" Background="#F8FAFC"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
                             </Border>
 
-                            <!-- Varieties and Calibers Side by Side -->
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="16"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                            <!-- Varieties - Left -->
+                            <Border Grid.Column="0" Grid.Row="2" Style="{StaticResource CardStyle}" Padding="20">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                        <Border Background="#DCFCE7" CornerRadius="10" Padding="10">
+                                            <TextBlock Text="🌿" FontSize="18"/>
+                                        </Border>
+                                        <TextBlock Text="Šķirnes" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                                    </StackPanel>
 
-                                <!-- Varieties -->
-                                <Border Grid.Column="0" Style="{StaticResource CardStyle}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <TextBox x:Name="NewVarietyName" Style="{StaticResource ModernTextBox}" Width="140" Margin="0,0,8,0"/>
+                                        <Button Content="+" Style="{StaticResource ModernButton}" Click="AddVariety" Padding="16,10"/>
+                                    </StackPanel>
 
-                                        <TextBlock Grid.Row="0" Text="Šķirnes" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                    <ListBox x:Name="VarietiesList" BorderThickness="0" Background="Transparent" MaxHeight="150">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#F0FDF4" CornerRadius="6" Padding="10,6" Margin="0,0,0,4">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13"/>
+                                                        <Button Content="×" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="DeleteVariety" Tag="{Binding Id}" FontSize="14" Foreground="#EF4444" Margin="8,0,0,0"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
 
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
-                                            <TextBox x:Name="NewVarietyName" Style="{StaticResource ModernTextBox}" Width="120" Margin="0,0,8,0"/>
-                                            <Button Content="+" Style="{StaticResource ModernButton}" Click="AddVariety"/>
-                                        </StackPanel>
+                            <!-- Calibers - Right -->
+                            <Border Grid.Column="2" Grid.Row="2" Style="{StaticResource CardStyle}" Padding="20">
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,16">
+                                        <Border Background="#F3E8FF" CornerRadius="10" Padding="10">
+                                            <TextBlock Text="📐" FontSize="18"/>
+                                        </Border>
+                                        <TextBlock Text="Kalibri" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                                    </StackPanel>
 
-                                        <ListBox Grid.Row="2" x:Name="VarietiesList" BorderThickness="0" Background="Transparent" MaxHeight="200">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Background="#F9FAFB" CornerRadius="6" Padding="10,8" Margin="0,0,0,4">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13" Margin="0,0,8,0"/>
-                                                            <Button Content="×" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="DeleteVariety" Tag="{Binding Id}" FontSize="14" Foreground="{StaticResource DangerBrush}"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </Grid>
-                                </Border>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,12">
+                                        <TextBox x:Name="NewCaliberName" Style="{StaticResource ModernTextBox}" Width="140" Margin="0,0,8,0"/>
+                                        <Button Content="+" Style="{StaticResource ModernButton}" Click="AddCaliber" Padding="16,10"/>
+                                    </StackPanel>
 
-                                <!-- Calibers -->
-                                <Border Grid.Column="2" Style="{StaticResource CardStyle}">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="Auto"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-
-                                        <TextBlock Grid.Row="0" Text="Kalibri" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
-
-                                        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0,0,12">
-                                            <TextBox x:Name="NewCaliberName" Style="{StaticResource ModernTextBox}" Width="120" Margin="0,0,8,0"/>
-                                            <Button Content="+" Style="{StaticResource ModernButton}" Click="AddCaliber"/>
-                                        </StackPanel>
-
-                                        <ListBox Grid.Row="2" x:Name="CalibersList" BorderThickness="0" Background="Transparent" MaxHeight="200">
-                                            <ListBox.ItemTemplate>
-                                                <DataTemplate>
-                                                    <Border Background="#F9FAFB" CornerRadius="6" Padding="10,8" Margin="0,0,0,4">
-                                                        <StackPanel Orientation="Horizontal">
-                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13" Margin="0,0,8,0"/>
-                                                            <Button Content="×" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="DeleteCaliber" Tag="{Binding Id}" FontSize="14" Foreground="{StaticResource DangerBrush}"/>
-                                                        </StackPanel>
-                                                    </Border>
-                                                </DataTemplate>
-                                            </ListBox.ItemTemplate>
-                                        </ListBox>
-                                    </Grid>
-                                </Border>
-                            </Grid>
-                        </StackPanel>
+                                    <ListBox x:Name="CalibersList" BorderThickness="0" Background="Transparent" MaxHeight="150">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border Background="#FAF5FF" CornerRadius="6" Padding="10,6" Margin="0,0,0,4">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" FontSize="13"/>
+                                                        <Button Content="×" Background="Transparent" BorderThickness="0" Cursor="Hand" Click="DeleteCaliber" Tag="{Binding Id}" FontSize="14" Foreground="#EF4444" Margin="8,0,0,0"/>
+                                                    </StackPanel>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </StackPanel>
+                            </Border>
+                        </Grid>
                     </ScrollViewer>
                 </Grid>
             </Grid>
