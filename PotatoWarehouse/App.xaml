@@ -4,21 +4,23 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <!-- Neutral Light Color Palette -->
-            <Color x:Key="PrimaryColor">#6B7280</Color>
-            <Color x:Key="PrimaryDarkColor">#4B5563</Color>
-            <Color x:Key="AccentColor">#10B981</Color>
-            <Color x:Key="BackgroundColor">#F9FAFB</Color>
+            <!-- Modern Warehouse Dashboard Color Palette -->
+            <Color x:Key="PrimaryColor">#00875A</Color>
+            <Color x:Key="PrimaryDarkColor">#006644</Color>
+            <Color x:Key="AccentColor">#FFA033</Color>
+            <Color x:Key="BackgroundColor">#F4F7F6</Color>
             <Color x:Key="BackgroundPure">#FFFFFF</Color>
             <Color x:Key="CardColor">#FFFFFF</Color>
-            <Color x:Key="TextPrimaryColor">#111827</Color>
-            <Color x:Key="TextSecondaryColor">#9CA3AF</Color>
-            <Color x:Key="SidebarColor">#F3F4F6</Color>
-            <Color x:Key="SidebarBorderColor">#E5E7EB</Color>
-            <Color x:Key="SidebarActiveColor">#E5E7EB</Color>
+            <Color x:Key="TextPrimaryColor">#1E293B</Color>
+            <Color x:Key="TextSecondaryColor">#64748B</Color>
+            <Color x:Key="SidebarColor">#0D4A3A</Color>
+            <Color x:Key="SidebarBorderColor">#0A3D30</Color>
+            <Color x:Key="SidebarActiveColor">#1A5D4A</Color>
             <Color x:Key="DangerColor">#EF4444</Color>
             <Color x:Key="SuccessColor">#10B981</Color>
-            <Color x:Key="BorderColor">#E5E7EB</Color>
+            <Color x:Key="WarningColor">#F59E0B</Color>
+            <Color x:Key="BorderColor">#E2E8F0</Color>
+            <Color x:Key="CardShadowColor">#000000</Color>
 
             <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
             <SolidColorBrush x:Key="PrimaryDarkBrush" Color="{StaticResource PrimaryDarkColor}"/>
@@ -32,23 +34,28 @@
             <SolidColorBrush x:Key="SidebarActiveBrush" Color="{StaticResource SidebarActiveColor}"/>
             <SolidColorBrush x:Key="DangerBrush" Color="{StaticResource DangerColor}"/>
             <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}"/>
+            <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}"/>
             <SolidColorBrush x:Key="BorderBrush" Color="{StaticResource BorderColor}"/>
 
-            <!-- Simple Button -->
+            <!-- Shadow Effect -->
+            <DropShadowEffect x:Key="CardShadow" BlurRadius="30" ShadowDepth="10" Opacity="0.08" Color="#000000"/>
+            <DropShadowEffect x:Key="CardShadowLight" BlurRadius="20" ShadowDepth="5" Opacity="0.06" Color="#000000"/>
+
+            <!-- Modern Button -->
             <Style x:Key="ModernButton" TargetType="Button">
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
                 <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Padding" Value="16,10"/>
+                <Setter Property="Padding" Value="20,12"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="FontSize" Value="14"/>
-                <Setter Property="FontWeight" Value="Medium"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border" 
                                     Background="{TemplateBinding Background}"
-                                    CornerRadius="8"
+                                    CornerRadius="10"
                                     Padding="{TemplateBinding Padding}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
@@ -57,7 +64,7 @@
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource PrimaryDarkBrush}"/>
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="False">
-                                    <Setter TargetName="border" Property="Background" Value="#D1D5DB"/>
+                                    <Setter TargetName="border" Property="Background" Value="#CBD5E1"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -65,14 +72,14 @@
                 </Setter>
             </Style>
 
-            <!-- Accent Button (Green) -->
+            <!-- Accent Button (Orange) -->
             <Style x:Key="AccentButton" TargetType="Button" BasedOn="{StaticResource ModernButton}">
                 <Setter Property="Background" Value="{StaticResource AccentBrush}"/>
             </Style>
 
-            <!-- Simple TextBox -->
+            <!-- Modern TextBox -->
             <Style x:Key="ModernTextBox" TargetType="TextBox">
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="Padding" Value="14,12"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
@@ -84,7 +91,7 @@
                             <Border Background="{TemplateBinding Background}"
                                     BorderBrush="{TemplateBinding BorderBrush}"
                                     BorderThickness="{TemplateBinding BorderThickness}"
-                                    CornerRadius="6">
+                                    CornerRadius="10">
                                 <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
                             </Border>
                             <ControlTemplate.Triggers>
@@ -97,9 +104,9 @@
                 </Setter>
             </Style>
 
-            <!-- Simple ComboBox -->
+            <!-- Modern ComboBox -->
             <Style x:Key="ModernComboBox" TargetType="ComboBox">
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="Padding" Value="14,12"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
@@ -107,45 +114,45 @@
                 <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             </Style>
 
-            <!-- Simple Card Style -->
+            <!-- Modern Card Style -->
             <Style x:Key="CardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource CardBrush}"/>
-                <Setter Property="CornerRadius" Value="8"/>
-                <Setter Property="Padding" Value="16"/>
-                <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
-                <Setter Property="BorderThickness" Value="1"/>
+                <Setter Property="CornerRadius" Value="24"/>
+                <Setter Property="Padding" Value="24"/>
+                <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
             </Style>
 
             <!-- Stats Card Style -->
             <Style x:Key="StatsCardStyle" TargetType="Border">
                 <Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
-                <Setter Property="CornerRadius" Value="12"/>
-                <Setter Property="Padding" Value="20"/>
+                <Setter Property="CornerRadius" Value="24"/>
+                <Setter Property="Padding" Value="24"/>
             </Style>
 
-            <!-- Simple Navigation Button -->
+            <!-- Navigation Button -->
             <Style x:Key="NavButton" TargetType="Button">
                 <Setter Property="Background" Value="Transparent"/>
-                <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="Foreground" Value="#94A3B8"/>
+                <Setter Property="Padding" Value="16,14"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="Medium"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border x:Name="border"
                                     Background="{TemplateBinding Background}"
                                     Padding="{TemplateBinding Padding}"
-                                    CornerRadius="6">
+                                    CornerRadius="12">
                                 <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                                                   VerticalAlignment="Center"/>
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter TargetName="border" Property="Background" Value="{StaticResource SidebarActiveBrush}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                                    <Setter Property="Foreground" Value="White"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
@@ -153,34 +160,59 @@
                 </Setter>
             </Style>
 
-            <!-- Simple DataGrid -->
+            <!-- Active Navigation Button -->
+            <Style x:Key="NavButtonActive" TargetType="Button">
+                <Setter Property="Background" Value="{StaticResource SidebarActiveBrush}"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Padding" Value="16,14"/>
+                <Setter Property="HorizontalContentAlignment" Value="Left"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border"
+                                    Background="{TemplateBinding Background}"
+                                    Padding="{TemplateBinding Padding}"
+                                    CornerRadius="12">
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                                                  VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!-- Modern DataGrid -->
             <Style TargetType="DataGrid">
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="RowBackground" Value="White"/>
-                <Setter Property="AlternatingRowBackground" Value="#FAFAFA"/>
+                <Setter Property="AlternatingRowBackground" Value="#F8FAFC"/>
                 <Setter Property="GridLinesVisibility" Value="Horizontal"/>
-                <Setter Property="HorizontalGridLinesBrush" Value="#E5E7EB"/>
+                <Setter Property="HorizontalGridLinesBrush" Value="#F1F5F9"/>
                 <Setter Property="HeadersVisibility" Value="Column"/>
                 <Setter Property="CanUserAddRows" Value="False"/>
                 <Setter Property="CanUserDeleteRows" Value="False"/>
                 <Setter Property="AutoGenerateColumns" Value="False"/>
                 <Setter Property="IsReadOnly" Value="True"/>
-                <Setter Property="FontSize" Value="13"/>
+                <Setter Property="FontSize" Value="14"/>
                 <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
             </Style>
 
             <Style TargetType="DataGridColumnHeader">
-                <Setter Property="Background" Value="#F9FAFB"/>
-                <Setter Property="Foreground" Value="#9CA3AF"/>
-                <Setter Property="FontWeight" Value="Medium"/>
-                <Setter Property="FontSize" Value="11"/>
-                <Setter Property="Padding" Value="10,8"/>
+                <Setter Property="Background" Value="#F8FAFC"/>
+                <Setter Property="Foreground" Value="#64748B"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="12"/>
+                <Setter Property="Padding" Value="16,12"/>
                 <Setter Property="BorderThickness" Value="0"/>
             </Style>
 
             <Style TargetType="DataGridCell">
-                <Setter Property="Padding" Value="10,8"/>
+                <Setter Property="Padding" Value="16,12"/>
                 <Setter Property="BorderThickness" Value="0"/>
                 <Setter Property="Template">
                     <Setter.Value>
@@ -193,7 +225,8 @@
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
-                        <Setter Property="Background" Value="#F3F4F6"/>
+                        <Setter Property="Background" Value="#F0FDF4"/>
+                        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
@@ -202,14 +235,14 @@
                 <Setter Property="Background" Value="White"/>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#FAFAFA"/>
+                        <Setter Property="Background" Value="#F8FAFC"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
 
-            <!-- Simple DatePicker -->
+            <!-- Modern DatePicker -->
             <Style TargetType="DatePicker">
-                <Setter Property="Padding" Value="12,10"/>
+                <Setter Property="Padding" Value="14,12"/>
                 <Setter Property="FontSize" Value="14"/>
                 <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
                 <Setter Property="BorderThickness" Value="1"/>
