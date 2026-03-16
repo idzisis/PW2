@@ -83,7 +83,6 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
@@ -214,7 +213,7 @@
                     </Grid>
 
                     <!-- Details List -->
-                    <Border Grid.Row="3" Style="{StaticResource CardStyle}">
+                    <Border Grid.Row="2" Style="{StaticResource CardStyle}">
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto"/>
