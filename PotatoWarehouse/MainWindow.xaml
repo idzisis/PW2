@@ -184,43 +184,38 @@
                     <!-- Details List -->
                     <Border Grid.Row="2" Style="{StaticResource CardStyle}">
                         <Grid>
-                        <!-- Details List -->
-                        <Border Grid.Row="1" Style="{StaticResource CardStyle}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                
-                                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-                                    <Border Background="#EEF2FF" CornerRadius="8" Padding="10,6" Margin="0,0,10,0">
-                                        <TextBlock Text="📋" FontSize="14"/>
-                                    </Border>
-                                    <TextBlock Text="Detalizēts saraksts" 
-                                               FontSize="20" 
-                                               FontWeight="SemiBold"
-                                               Foreground="{StaticResource TextPrimaryBrush}"
-                                               VerticalAlignment="Center"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            
+                            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
+                                <Border Background="#EEF2FF" CornerRadius="8" Padding="10,6" Margin="0,0,10,0">
+                                    <TextBlock Text="📋" FontSize="14"/>
+                                </Border>
+                                <TextBlock Text="Detalizēts saraksts" 
+                                           FontSize="20" 
+                                           FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
 
-                                </StackPanel>
-
-                                <TreeView Grid.Row="1" 
-                                          x:Name="InventoryTree"
-                                          Background="Transparent"
-                                          BorderThickness="0"
-                                          Padding="0">
-                                    <TreeView.ItemContainerStyle>
-                                        <Style TargetType="TreeViewItem">
-                                            <Setter Property="IsExpanded" Value="True"/>
-                                            <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
-                                            <Setter Property="FontSize" Value="14"/>
-                                            <Setter Property="Padding" Value="0"/>
-                                        </Style>
-                                    </TreeView.ItemContainerStyle>
-                                </TreeView>
-                            </Grid>
-                        </Border>
-                    </Grid>
+                            <TreeView Grid.Row="1" 
+                                      x:Name="InventoryTree"
+                                      Background="Transparent"
+                                      BorderThickness="0"
+                                      Padding="0">
+                                <TreeView.ItemContainerStyle>
+                                    <Style TargetType="TreeViewItem">
+                                        <Setter Property="IsExpanded" Value="True"/>
+                                        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+                                        <Setter Property="FontSize" Value="14"/>
+                                        <Setter Property="Padding" Value="0"/>
+                                    </Style>
+                                </TreeView.ItemContainerStyle>
+                            </TreeView>
+                        </Grid>
+                    </Border>
                 </Grid>
 
                 <!-- Incoming Page -->
