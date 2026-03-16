@@ -106,7 +106,7 @@
                         </Grid.RowDefinitions>
 
                         <!-- Total Summary Card -->
-                        <Border Grid.Row="0" Style="{StaticResource StatsCardStyle}" VerticalAlignment="Top" Margin="0,0,0,24">
+                        <Border Grid.Row="0" Style="{StaticResource StatsCardStyle}" VerticalAlignment="Top" Margin="0,0,16,24">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
                                     <GradientStop Color="#6366F1" Offset="0"/>
@@ -138,6 +138,30 @@
                                     <TextBlock Text="🥔" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
                             </Grid>
+                        </Border>
+
+                        <!-- Target Progress Card -->
+                        <Border Grid.Row="0" Style="{StaticResource CardStyle}" VerticalAlignment="Top" Margin="0,0,0,24" Width="200" HorizontalAlignment="Right">
+                            <StackPanel>
+                                <TextBlock Text="MĒRĶA PROGRESS" FontSize="13" FontWeight="SemiBold" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,0,0,16" HorizontalAlignment="Center"/>
+                                <Grid Width="80" Height="80" HorizontalAlignment="Center" Margin="0,0,0,12">
+                                    <Ellipse Stroke="#E5E7EB" StrokeThickness="6"/>
+                                    <Ellipse x:Name="HomeProgressArc" Stroke="{StaticResource AccentBrush}" StrokeThickness="6" StrokeDashArray="100" StrokeDashOffset="0">
+                                        <Ellipse.RenderTransform>
+                                            <RotateTransform Angle="-90" CenterX="40" CenterY="40"/>
+                                        </Ellipse.RenderTransform>
+                                    </Ellipse>
+                                    <TextBlock x:Name="HomeProgressPercentText" Text="0%" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" FontSize="16" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </Grid>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,4">
+                                    <TextBlock Text="Mērķis: " FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                    <TextBlock x:Name="HomeTargetText" Text="0 t" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <TextBlock Text="Ienācis: " FontSize="12" Foreground="{StaticResource TextSecondaryBrush}"/>
+                                    <TextBlock x:Name="HomeActualText" Text="0 t" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource AccentBrush}"/>
+                                </StackPanel>
+                            </StackPanel>
                         </Border>
 
                         <!-- Details List -->
@@ -266,7 +290,14 @@
                                 <DataGridTextColumn Header="Datums" Binding="{Binding Date, StringFormat=d}" Width="SizeToCells"/>
                                 <DataGridTextColumn Header="Šķirne" Binding="{Binding Variety.Name}" Width="SizeToCells"/>
                                 <DataGridTextColumn Header="Kalibrs" Binding="{Binding Caliber.Name}" Width="SizeToCells"/>
-                                <DataGridTextColumn Header="Sv. (t)" Binding="{Binding ContainerWeight, StringFormat=N3}" Width="SizeToCells"/>
+                                <DataGridTextColumn Header="Sv. (t)" Binding="{Binding ContainerWeightTons, StringFormat=N3}" Width="SizeToCells">
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="FontWeight" Value="Bold"/>
+                                            <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
                                 <DataGridTextColumn Header="Daudz" Binding="{Binding ContainerCount}" Width="SizeToCells"/>
                                 <DataGridTextColumn Header="Kopā (t)" Binding="{Binding TotalWeightTons, StringFormat=N3}" Width="SizeToCells">
                                     <DataGridTextColumn.ElementStyle>

@@ -81,6 +81,8 @@ public class IncomingPotato
     
     public double TotalWeightTons => (ContainerWeight * ContainerCount) / 1000.0;
 
+    public double ContainerWeightTons => ContainerWeight / 1000.0;
+
     public int SeasonId { get; set; }
 
     [ForeignKey("SeasonId")]
@@ -111,6 +113,8 @@ public class OutgoingPotato
     public double TotalWeight => ContainerWeight * ContainerCount;
     
     public double TotalWeightTons => (ContainerWeight * ContainerCount) / 1000.0;
+
+    public double ContainerWeightTons => ContainerWeight / 1000.0;
 
     [Required]
     [MaxLength(200)]

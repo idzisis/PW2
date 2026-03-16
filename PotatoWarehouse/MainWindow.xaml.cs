@@ -196,6 +196,49 @@ public partial class MainWindow : Window
         }
 
         TotalWeightText.Text = $"{totalWeight:N2} t";
+
+        LoadHomeProgress();
+    }
+
+    private void LoadHomeProgress()
+    {
+        using var context = new WarehouseDbContext();
+
+        var season = context.Seasons.Find(_activeSeasonId);
+        if (season == null) return;
+
+        var incomingTotal = context.IncomingPotatoes
+            .Where(i => i.SeasonId == _activeSeasonId)
+            .Sum(i => i.ContainerWeight * i.ContainerCount);
+
+        var target = season.TargetWeight;
+        var actual = incomingTotal;
+
+        HomeTargetText.Text = $"{target / 1000:N1} t";
+        HomeActualText.Text = $"{actual / 1000:N1} t";
+
+        if (target <= 0)
+        {
+            HomeProgressPercentText.Text = "0%";
+            HomeProgressArc.StrokeDashArray = new DoubleCollection { 0, 100 };
+            return;
+        }
+
+        double percent = Math.Min(100, (actual / target) * 100);
+        HomeProgressPercentText.Text = $"{percent:F0}%";
+
+        double dashLength = percent;
+        double dashGap = 100 - percent;
+        HomeProgressArc.StrokeDashArray = new DoubleCollection { dashLength, dashGap };
+
+        if (percent >= 100)
+            HomeProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(34, 197, 94));
+        else if (percent >= 75)
+            HomeProgressArc.Stroke = (System.Windows.Media.Brush)FindResource("AccentBrush");
+        else if (percent >= 50)
+            HomeProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(249, 115, 22));
+        else
+            HomeProgressArc.Stroke = new System.Windows.Media.SolidColorBrush(System.Windows.Media.Color.FromRgb(239, 68, 68));
     }
 
     private StackPanel CreateVarietyHeader(string name, double weight)
@@ -419,21 +462,13 @@ public partial class MainWindow : Window
     {
         if (sender is Button btn && btn.Tag is int id)
         {
-            using var context = new WarehouseDbContext();
-            var incoming = context.IncomingPotatoes.Find(id);
-            if (incoming != null)
+            var editWindow = new EditWindow(id, "Incoming", _activeSeasonId);
+            editWindow.Owner = this;
+            editWindow.ShowDialog();
+
+            if (editWindow.SaveSuccess)
             {
-                IncomingDatePicker.SelectedDate = incoming.Date;
-                IncomingVarietyCombo.SelectedValue = incoming.VarietyId;
-                IncomingCaliberCombo.SelectedValue = incoming.CaliberId;
-                IncomingContainerWeight.Text = (incoming.ContainerWeight / 1000).ToString("N3");
-                IncomingContainerCount.Text = incoming.ContainerCount.ToString();
-                
-                context.IncomingPotatoes.Remove(incoming);
-                context.SaveChanges();
-                
                 LoadIncomingData();
-                MessageBox.Show("Ieraksts rediģēšanai atvērts!");
             }
         }
     }
@@ -442,21 +477,13 @@ public partial class MainWindow : Window
     {
         if (sender is Button btn && btn.Tag is int id)
         {
-            using var context = new WarehouseDbContext();
-            var outgoing = context.OutgoingPotatoes.Find(id);
-            if (outgoing != null)
+            var editWindow = new EditWindow(id, "Outgoing", _activeSeasonId);
+            editWindow.Owner = this;
+            editWindow.ShowDialog();
+
+            if (editWindow.SaveSuccess)
             {
-                OutgoingDatePicker.SelectedDate = outgoing.Date;
-                OutgoingVarietyCombo.SelectedValue = outgoing.VarietyId;
-                OutgoingCaliberCombo.SelectedValue = outgoing.CaliberId;
-                OutgoingWeight.Text = (outgoing.ContainerWeight / 1000).ToString("N3");
-                OutgoingBuyer.Text = outgoing.Buyer;
-                
-                context.OutgoingPotatoes.Remove(outgoing);
-                context.SaveChanges();
-                
                 LoadOutgoingData();
-                MessageBox.Show("Ieraksts rediģēšanai atvērts!");
             }
         }
     }
