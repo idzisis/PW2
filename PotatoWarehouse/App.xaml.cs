@@ -11,12 +11,6 @@ public partial class App : Application
     {
         base.OnStartup(e);
         
-        var dbPath = "warehouse.db";
-        if (File.Exists(dbPath))
-        {
-            File.Delete(dbPath);
-        }
-        
         using var context = new WarehouseDbContext();
         context.Database.EnsureCreated();
     }

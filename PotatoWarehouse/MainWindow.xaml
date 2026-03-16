@@ -205,27 +205,31 @@
                             </Grid.RowDefinitions>
                             
                             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,20">
-                                <Border Background="#EEF2FF" CornerRadius="8" Padding="10,6" Margin="0,0,10,0">
-                                    <TextBlock Text="📋" FontSize="14"/>
+                                <Border Background="#E0F2FE" CornerRadius="12" Padding="12,8">
+                                    <TextBlock Text="📋" FontSize="16"/>
                                 </Border>
-                                <TextBlock Text="Detalizēts saraksts" 
+                                <TextBlock Text="Detalizēts saraksts pēc šķirnēm" 
                                            FontSize="20" 
-                                           FontWeight="SemiBold"
+                                           FontWeight="Bold"
                                            Foreground="{StaticResource TextPrimaryBrush}"
-                                           VerticalAlignment="Center"/>
+                                           VerticalAlignment="Center"
+                                           Margin="14,0,0,0"/>
                             </StackPanel>
 
                             <TreeView Grid.Row="1" 
                                       x:Name="InventoryTree"
                                       Background="Transparent"
                                       BorderThickness="0"
-                                      Padding="0">
+                                      Padding="0"
+                                      MaxWidth="600"
+                                      HorizontalAlignment="Center">
                                 <TreeView.ItemContainerStyle>
                                     <Style TargetType="TreeViewItem">
                                         <Setter Property="IsExpanded" Value="True"/>
                                         <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
                                         <Setter Property="FontSize" Value="14"/>
                                         <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Margin" Value="0,2,0,2"/>
                                     </Style>
                                 </TreeView.ItemContainerStyle>
                             </TreeView>
@@ -337,10 +341,10 @@
                                         </Style>
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
-                                <DataGridTemplateColumn Width="60">
+                                <DataGridTemplateColumn Width="80">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                 <Button Content="✏️" 
                                                         Background="Transparent" 
                                                         BorderThickness="0" 
@@ -348,6 +352,8 @@
                                                         Click="EditIncoming"
                                                         Tag="{Binding Id}"
                                                         ToolTip="Rediģēt"
+                                                        FontSize="14"
+                                                        Padding="6,4"
                                                         Margin="0,0,4,0"/>
                                                 <Button Content="🗑️" 
                                                         Background="Transparent" 
@@ -355,7 +361,9 @@
                                                         Cursor="Hand"
                                                         Click="DeleteIncoming"
                                                         Tag="{Binding Id}"
-                                                        ToolTip="Dzēst"/>
+                                                        ToolTip="Dzēst"
+                                                        FontSize="14"
+                                                        Padding="6,4"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
@@ -455,10 +463,10 @@
                                     </DataGridTextColumn.ElementStyle>
                                 </DataGridTextColumn>
                                 <DataGridTextColumn Header="Pircējs" Binding="{Binding Buyer}" Width="SizeToCells"/>
-                                <DataGridTemplateColumn Width="60">
+                                <DataGridTemplateColumn Width="80">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Orientation="Horizontal">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                                 <Button Content="✏️" 
                                                         Background="Transparent" 
                                                         BorderThickness="0" 
@@ -466,6 +474,8 @@
                                                         Click="EditOutgoing"
                                                         Tag="{Binding Id}"
                                                         ToolTip="Rediģēt"
+                                                        FontSize="14"
+                                                        Padding="6,4"
                                                         Margin="0,0,4,0"/>
                                                 <Button Content="🗑️" 
                                                         Background="Transparent" 
@@ -473,7 +483,9 @@
                                                         Cursor="Hand"
                                                         Click="DeleteOutgoing"
                                                         Tag="{Binding Id}"
-                                                        ToolTip="Dzēst"/>
+                                                        ToolTip="Dzēst"
+                                                        FontSize="14"
+                                                        Padding="6,4"/>
                                             </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
